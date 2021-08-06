@@ -77,7 +77,7 @@
     @endcan
 
 
-    <main>
+    <main class="mt-5">
         <div class="container">
             @include('partials.alerts')
             @yield('content')

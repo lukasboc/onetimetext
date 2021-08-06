@@ -19,8 +19,8 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::prefix('secret')->name('secret.')->group(function(){
-    Route::resource('/', TextController::class);
+Route::prefix('/')->name('text.')->group(function(){
+    Route::resource('/secret', TextController::class);
 });
 
 // Admin Routes

@@ -15,7 +15,9 @@ class CreateTextsTable extends Migration
     {
         Schema::create('texts', function (Blueprint $table) {
             $table->id();
-            $table->
+            $table->tinyText('key');
+            $table->text('value');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }
