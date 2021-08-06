@@ -17,6 +17,7 @@
             </tr>
             </thead>
             <tbody>
+            @can('is-admin')
             @foreach($secrets as $secret)
                 <tr>
                     <th scope="row">{{ $secret->id }}</th>
@@ -24,6 +25,7 @@
                     <td>{{ $secret->value }}</td>
                 </tr>
             @endforeach
+            @endcan
 
             </tbody>
         </table>
