@@ -1,6 +1,5 @@
 # About
-Dies ist eine Anwendung zum Teilen von Passwörtern oder anderen geheimen Informationen. Ein Nutzer ist in der Lage, eine Nachricht zu erstellen und den Link zu verbreiten. Der Link-Empfänger kann diesen dann öffenn und die Nachricht lesen. Nachdem die Nachricht gelesen wurde, wird der Link unbrauchbar und die Nachricht aus der Datenbank gelöscht.
-
+This is an application for sharing passwords or other secret information. A user is able to create a message and distribute the link. The link recipient can then open it and read the message. After the message is read, the link becomes unusable and the message is deleted from the database.
 # Install
 - run composer install
 - run npm install
