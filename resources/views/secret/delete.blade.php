@@ -6,18 +6,47 @@
             <h1 >Dein OneTimeText.</h1>
         </div>
     </div>
-
     <div class="card">
-        <p>{{ $secret->value }}</p>
+        <p id="foo">{{ $secret->value }}</p>
     </div>
 
-    <button type="button" class="btn btn-sm btn-danger"
-            onclick="event.preventDefault(); document.getElementById('delete-secret-form-{{ $secret->key }}').submit();">
-        Delete
+
+    <div class="row">
+        <div class="col text-center">
+    <button id="copy-btn" class="btn btn-outline-primary mt-4" data-clipboard-target="#foo">
+        <i class="bi bi-clipboard-check"></i> Kopieren
     </button>
-    <form id="delete-secret-form-{{ $secret->key }}" action="{{ route('text.secret.destroy', $secret->key) }}"
-          method="POST" style="display: none">
-        @csrf
-        @method("DELETE")
-    </form>
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-8">
+            <div class="alert alert-info mt-4 d-none" id="copied" role="alert">
+                Die Nachricht wurde kopiert. Vielen Dank für die Nutzung von OneTimeText.
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
+    <script>
+        var successMessage = document.getElementById('copied');
+        var btn = document.getElementById('copy-btn');
+        var clipboard = new ClipboardJS(btn);
+
+        clipboard.on('success', function (e) {
+            successMessage.classList.remove("d-none");
+            e.clearSelection();
+        });
+
+        clipboard.on('error', function (e) {
+            console.error('Action:', e.action);
+            console.error('Trigger:', e.trigger);
+        });
+    </script>
+    <script>
+
+    </script>
 @endsection

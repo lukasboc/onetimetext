@@ -4,7 +4,7 @@
     <h1>Hi from index.</h1>
 
     <div class="card">
-        <form method="POST" action="{{ route('secret.store') }}">
+        <form method="POST" action="{{ route('text.secret.store') }}">
             @csrf
             <div class="mb-3">
                 <label for="value" class="form-label">Text</label>
