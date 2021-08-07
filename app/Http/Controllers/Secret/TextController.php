@@ -67,7 +67,7 @@ class TextController extends Controller
             $request->session()->flash('error', 'The text was not created.');
             return redirect(url('/'));
         }
-        $request->session()->flash('success', 'The OneTimeText was created: ' . url('/') .'/secret/' . $text->key);
+        $request->session()->flash('secreturl', url('/') .'/secret/' . $text->key);
         return redirect(url('/'));
     }
 

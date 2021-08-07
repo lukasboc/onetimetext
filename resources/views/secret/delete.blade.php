@@ -46,7 +46,4 @@
             console.error('Trigger:', e.trigger);
         });
     </script>
-    <script>
-
-    </script>
 @endsection
