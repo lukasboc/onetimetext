@@ -11269,7 +11269,43 @@ textarea.form-control-lg {
   }
 }
 body {
-  color: #1a2238;
+  color: #141729;
+}
+
+.highlight-text {
+  color: #5b61f7;
+}
+
+.highlight-background {
+  background-color: #5b61f7;
+}
+
+.highlight-border {
+  border-color: #5b61f7;
+}
+
+.text-lightgray {
+  color: #dadada;
+}
+
+#index-image {
+  width: 90%;
+}
+
+#save-secret-form #value {
+  background-color: transparent;
+  color: white;
+  border-radius: 20px;
+}
+
+#save-secret-form #create-link:hover {
+  border-color: #5b61f7;
+  background-color: transparent;
+  color: #5b61f7;
+}
+
+main {
+  background-color: #141729;
 }
 
 h1, .h1 {
@@ -11277,7 +11313,7 @@ h1, .h1 {
 }
 
 .navbar {
-  background-color: #1a2238;
+  background-color: #141729;
 }
 .navbar a {
   color: #ffffff;
@@ -11300,7 +11336,7 @@ h1, .h1 {
   margin-bottom: 40px;
 }
 .sub-nav a {
-  color: #1a2238;
+  color: #141729;
 }
 
 .card {

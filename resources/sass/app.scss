@@ -1,10 +1,49 @@
 @import "~bootstrap/scss/bootstrap";
 
-$navBar: #1a2238;
+$navBar: #141729;
+$highlight: #5b61f7;
 $navText: rgba(255,255,255,.8);
 
 body {
     color: $navBar;
+}
+
+.highlight-text {
+    color: $highlight;
+}
+
+.highlight-background {
+    background-color: $highlight;
+}
+
+.highlight-border {
+    border-color: $highlight;
+}
+
+.text-lightgray {
+    color: #dadada
+}
+
+#index-image {
+    width: 90%
+}
+
+#save-secret-form #value {
+    background-color: transparent;
+    color: white;
+    border-radius: 20px;
+}
+
+#save-secret-form #create-link {
+    &:hover {
+        border-color: $highlight;
+        background-color: transparent;
+        color: $highlight;
+    }
+}
+
+main {
+    background-color: $navBar;
 }
 
 h1{
@@ -15,9 +54,9 @@ h1{
     background-color: $navBar;
     a {
         color: #ffffff;
-    }
-    a:hover{
-        color: #9daaf2;
+        &:hover {
+            color: #9daaf2;
+        }
     }
 }
 
