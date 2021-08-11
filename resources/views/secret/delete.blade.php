@@ -3,21 +3,18 @@
 @section('content')
     <div class="row">
         <div class="col-6">
-            <h1 >Dein OneTimeText.</h1>
+            <h1 class="display-5 fw-bold text-white">Dein <span class="highlight-text">OneTimeText</span>.
         </div>
     </div>
     <div class="card">
         <p id="foo">{{ $secret->value }}</p>
     </div>
-
-
     <div class="row">
         <div class="col text-center">
-    <button id="copy-btn" class="btn btn-outline-primary mt-4" data-clipboard-target="#foo">
-        <i class="bi bi-clipboard-check"></i> Kopieren
-    </button>
-
-
+            <button id="copy-btn" class="btn btn-primary highlight-background px-4 py-2 mt-4"
+                    data-clipboard-target="#foo">
+                <i class="bi bi-clipboard-check"></i> Kopieren
+            </button>
         </div>
     </div>
     <div class="row">

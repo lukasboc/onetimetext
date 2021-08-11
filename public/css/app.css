@@ -11269,7 +11269,8 @@ textarea.form-control-lg {
   }
 }
 body {
-  color: #141729;
+  color: #ffffff;
+  background-color: #141729;
 }
 
 .highlight-text {
@@ -11319,7 +11320,7 @@ h1, .h1 {
   color: #ffffff;
 }
 .navbar a:hover {
-  color: #9daaf2;
+  color: #5b61f7;
 }
 
 .navbar .navbar-toggler[aria-expanded=true] {
@@ -11331,15 +11332,16 @@ h1, .h1 {
 }
 
 .sub-nav {
-  background-color: #ffffff;
-  box-shadow: 0 5px 10px rgba(204, 204, 204, 0.3);
-  margin-bottom: 40px;
+  background-color: #141729;
 }
 .sub-nav a {
-  color: #141729;
+  color: #ffffff;
 }
 
 .card {
-  box-shadow: 0 2px 4px rgba(204, 204, 204, 0.8);
   padding: 20px 40px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 20px;
 }

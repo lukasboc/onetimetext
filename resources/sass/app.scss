@@ -5,7 +5,8 @@ $highlight: #5b61f7;
 $navText: rgba(255,255,255,.8);
 
 body {
-    color: $navBar;
+    color: #ffffff;
+    background-color: $navBar;
 }
 
 .highlight-text {
@@ -55,7 +56,7 @@ h1{
     a {
         color: #ffffff;
         &:hover {
-            color: #9daaf2;
+            color: $highlight;
         }
     }
 }
@@ -68,15 +69,16 @@ h1{
 }
 
 .sub-nav{
-    background-color: #ffffff;
-    box-shadow: 0 5px 10px rgba(204,204,204,0.3);
-    margin-bottom: 40px;
+    background-color: $navBar;
     a {
-        color: $navBar;
+        color: #ffffff;
     }
 }
 
 .card {
-    box-shadow: 0 2px 4px rgba(204,204,204,0.8);
     padding: 20px 40px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 20px;
 }
