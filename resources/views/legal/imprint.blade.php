@@ -10,7 +10,7 @@
                     </p>
                     <h3> Vertreten durch:</h3> <p>Lukas Bock<br>
                     </p>
-                    <h3>Kontakt:</h3><p> Telefon: 0441 59473836<br> E-Mail: <a href="mailto:info@lubomedia.de?subject=Kontaktanfrage">info@lubomedia.com</a>
+                    <h3>Kontakt:</h3><p> Telefon: 0441 59473836<br> E-Mail: <a href="mailto:onetimetext@lubomedia.de?subject=Kontaktanfrage">onetimetext@lubomedia.com</a>
                     </p>
                     <h3>Steuernummer: </h3><p> 40/105/05213
                     </p>
