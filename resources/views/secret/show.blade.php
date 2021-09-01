@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="justify-content-center align-self-center col-8 col-sm-6 mx-auto mx-sm-0 mt-5 mt-sm-0">
-                    <img id="index-image" src="{{asset('images/mobilundraw_Safe_re_kiil-3220.png')}}" alt="image">
+                    <img id="index-image" src="{{asset('images/secret.png')}}" alt="image">
                 </div>
             </div>
     </div>
