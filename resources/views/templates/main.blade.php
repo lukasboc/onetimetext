@@ -92,7 +92,7 @@
 <footer class="mt-5 mb-4">
     <div class="text-center pt-5 pb-4">
         <h3>OneTimeText.</h3>
-        <a class="nav-link d-inline" href="{{ url('/impressum') }}">Impressum</a> <a class="nav-link d-inline" href="{{ url('/datenschutz') }}">Datenschutz</a>
+        <a class="nav-link d-inline" href="{{ url('/impressum') }}">Impressum</a> <a class="nav-link d-inline" href="{{ url('/datenschutz') }}">Datenschutz</a> <a class="nav-link d-inline" href="https://github.com/lukasboc/onetimetext" target="_blank">Github</a>
     </div>
 </footer>
 
