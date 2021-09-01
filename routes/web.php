@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LegalController;
 use Illuminate\Support\Facades\Route;
 use Admin\UserController;
 use Secret\TextController;
@@ -18,6 +19,10 @@ use Secret\TextController;
 Route::get('/', function () {
     return view('index');
 });
+
+Route::get('/impressum', [LegalController::class, 'imprint']);
+Route::get('/datenschutz', [LegalController::class, 'privacyPolicy']);
+
 
 Route::prefix('/')->name('text.')->group(function(){
     Route::resource('/secret', TextController::class);
