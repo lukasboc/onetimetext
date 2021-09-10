@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="card">
-        <p id="foo">{{ $secret->value }}</p>
+        <p id="foo">{!! nl2br(e($secret->value)) !!}</p>
     </div>
     <div class="row">
         <div class="col text-center">
