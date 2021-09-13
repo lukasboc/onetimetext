@@ -26,7 +26,7 @@ class StoreSecretTextRequest extends FormRequest
         return [
             //Key cant be checked here, because its set after
             //'key' => 'required|max:255|min:4|unique:texts',
-            'value' => 'required|max:1000|min:1'
+            'value' => 'required|max:2000|min:1'
         ];
     }
 }
