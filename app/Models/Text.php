@@ -12,6 +12,8 @@ class Text extends Model
 {
     use HasFactory;
 
+    protected $table = "texts";
+
     public function create(array $input)
     {
         return new Text([
