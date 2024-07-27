@@ -1,8 +1,19 @@
 @import "~bootstrap/scss/bootstrap";
 
 $navBar: #141729;
+$darkhover: #101021;
 $highlight: #5b61f7;
 $navText: rgba(255,255,255,.8);
+
+
+.table > :not(caption) > * > * {
+    background-color: $navBar;
+    color: white;
+}
+
+.table-hover > tbody > tr:hover > * {
+    background-color: $darkhover;
+}
 
 body {
     color: #ffffff;
@@ -11,6 +22,10 @@ body {
 
 .highlight-text {
     color: $highlight;
+}
+
+.text-primary {
+    color: $highlight
 }
 
 .highlight-background {
@@ -37,10 +52,34 @@ body {
     max-width: 300px;
 }
 
-#save-secret-form #value {
+#save-secret-form #value, #message {
     background-color: transparent;
     color: white;
     border-radius: 20px;
+}
+
+#message::placeholder, #value::placeholder {
+    color: #c5c5c5;
+}
+
+.form-element {
+    background-color: transparent;
+    color: white;
+    border-radius: 15px;
+    &:focus {
+        background-color: transparent;
+        color: $highlight;
+    }
+}
+
+.btn-highlight {
+    background-color: $highlight;
+    color: white;
+    &:hover {
+        border-color: $highlight;
+        background-color: transparent;
+        color: $highlight;
+    }
 }
 
 #save-secret-form #create-link {
@@ -91,7 +130,64 @@ h1{
     border-radius: 20px;
 }
 
+.accordion-button {
+    color: white;
+    background-color: $navBar;
+    &:hover {
+        background-color: $darkhover;
+    }
+    &:not(.collapsed){
+        color: var(--bs-accordion-active-color);
+        background-color: var(--bs-accordion-active-bg);
+    }
+}
+
+.accordion-button::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M2 5L8 11L14 5'/%3e%3c/svg%3e");
+}
+
 #cookie-footer {
     position: fixed;
     bottom: 0;
+}
+
+.pricing-box {
+    padding: 35px 50px;
+    border-radius: 20px;
+    border: 1px white solid;
+    position: relative;
+}
+
+.pricing-box .plan {
+    font-size: 34px;
+}
+
+.pricing-badge {
+    position: absolute;
+    top: 0;
+    z-index: 999;
+    right: 0;
+    width: 100%;
+    display: block;
+    font-size: 15px;
+    padding: 0;
+    overflow: hidden;
+    height: 100px;
+}
+
+.pricing-badge .badge {
+    float: right;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    right: -67px;
+    top: 17px;
+    position: relative;
+    text-align: center;
+    width: 200px;
+    font-size: 13px;
+    margin: 0;
+    padding: 7px 10px;
+    font-weight: 500;
+    color: #ffffff;
+    background: #fb7179;
 }

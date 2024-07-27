@@ -48,6 +48,10 @@ class FortifyServiceProvider extends ServiceProvider
             return view('auth.reset-password', ['request' => $request]);
         });
 
+        Fortify::requestPasswordResetLinkView(function (){
+            return view('auth.forgot-password');
+        });
+
         Fortify::verifyEmailView(function(){
             return view('auth.verify-email');
         });
@@ -59,5 +63,11 @@ class FortifyServiceProvider extends ServiceProvider
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
+
+        // Handle post-registration redirection
+        app()->singleton(
+            \Laravel\Fortify\Contracts\RegisterResponse::class,
+            \App\Http\Responses\RegisterResponse::class
+        );
     }
 }

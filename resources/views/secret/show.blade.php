@@ -46,7 +46,7 @@
                 <div class="row mb-5">
                     <div class="col-sm-8 col-md-6 justify-content-center align-self-center">
                         <h1>Was ist OneTimeText?</h1>
-                        <p>OneTimeText ist ein Werkzeug, das Ihnen dabei helfen soll, sensible Daten wie z.B. Passwörter zu versenden, ohne dass diese in Chat- oder E-Maiverläufen auftauchen. Sie können den Text, den Sie mit jemandem teilen möchten einfach in eine OneTimeText-Nachricht verpacken und den Link versenden. Der von Ihnen verpackte Text, der ausschließlich durch diesen Link aufrufbar ist, kann nur 1x gelesen werden, bevor die Nachricht aus System gelöscht wird. Sie brauchen sich also keine Gedanken darüber zu machen, dass weitere Personen auf die geheime Nachricht zugreifen können.</p>
+                        <p>OneTimeText ist ein Werkzeug, das Ihnen dabei helfen soll, sensible Daten wie z.B. Passwörter zu versenden, ohne dass diese in Chat- oder E-Mailverläufen auftauchen. Sie können den Text, den Sie mit jemandem teilen möchten einfach in eine OneTimeText-Nachricht verpacken und den Link versenden. Der von Ihnen verpackte Text, der ausschließlich durch diesen Link aufrufbar ist, kann nur 1x gelesen werden, bevor die Nachricht aus System gelöscht wird. Sie brauchen sich also keine Gedanken darüber zu machen, dass weitere Personen auf die geheime Nachricht zugreifen können.</p>
                     </div>
                     <div class="text-center justify-content-center align-self-center col-8 col-sm-4 col-md-6 mx-auto mx-sm-0 mt-5 mt-sm-0">
                         <img src="{{asset('images/whatis.png')}}" alt="image" class="img-fluid index-image" id="what-is-image">

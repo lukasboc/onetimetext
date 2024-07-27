@@ -45,9 +45,16 @@ class TextController extends Controller
 
     public function store(StoreSecretTextRequest $request)
     {
+
+        $userID = 1;
+
+        if($request->user() !== null){
+            $userID = $request->user()->id;
+        }
+
         $randomString = Str::random(15);
         $request->request->add(['key' => $randomString]);
-        $request->request->add(['user_id' => 1]);
+        $request->request->add(['user_id' => $userID]);
 
         $validated = $request->validate([
             // value is checked in StoreSecretTextRequest.php.
@@ -68,7 +75,7 @@ class TextController extends Controller
             return redirect(url('/'));
         }
         $request->session()->flash('secreturl', url('/') .'/secret/' . $text->key);
-        return redirect(url('/'));
+        return redirect($request->header('Referer'));
     }
 
     /**
@@ -84,5 +91,12 @@ class TextController extends Controller
         return view('secret.delete', [
             'secret' => $secret
         ]);
+    }
+
+    public function delete (Request $request){
+        $key = $request->input('key');
+        $secret = Text::where('key', '=', $key)->firstOrFail();
+        Text::where('key', $key)->delete();
+        return redirect($request->header('Referer'));
     }
 }

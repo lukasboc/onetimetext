@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <!-- JS -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
 
 </head>
 <body>
@@ -32,55 +33,39 @@
                 @if (Route::has('login'))
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('logout') }}"
-                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none">
-                                @csrf
-                            </form>
+                            <a class="nav-link btn btn-link" href="{{ url('/dashboard') }}">Dashboard</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle btn-lg" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{ url('/membership') }}">Konto</a></li>
+                                <li><a class="dropdown-item" href="{{ url('/billing-portal') }}">Abonnement</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ url('logout') }}"
+                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
                         </li>
                     @else
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link text-warning" href="{{ url('/pro') }}">Zu Pro wechseln</a>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">Login</a>
                         </li>
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">Register</a>
-                            </li>
-                        @endif
                     @endauth
                 @endif
             </ul>
         </div>
     </div>
 </nav>
-
-@can('logged-in')
-    <nav class="navbar sub-nav navbar-expand-sm">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText2"
-                    aria-controls="navbarText2" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon">
-                    <i style="color: white; font-size: 21pt" class="bi bi-list" id="navbar-icon"></i>
-                </span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText2">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    @can('is-admin')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.users.index') }}">Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('text.secret.index') }}">Texts</a>
-                        </li>
-                    @endcan
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/') }}">Home</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-@endcan
 
 
 <main>
@@ -92,7 +77,7 @@
 <footer class="mt-5 mb-4">
     <div class="text-center pt-5 pb-4">
         <h3>OneTimeText.</h3>
-        <a class="nav-link d-inline" href="{{ url('/impressum') }}">Impressum</a> <a class="nav-link d-inline" href="{{ url('/datenschutz') }}">Datenschutz</a> <a class="nav-link d-inline" href="https://github.com/lukasboc/onetimetext" target="_blank">Github</a>
+        <a class="nav-link d-inline" href="{{ url('/impressum') }}">Impressum</a> | <a class="nav-link d-inline" href="{{ url('/datenschutz') }}">Datenschutz</a> | <a class="nav-link d-inline" href="https://github.com/lukasboc/onetimetext" target="_blank">Github</a> | <a class="nav-link d-inline" href="{{ url('/contact') }}">Kontakt</a>
     </div>
 </footer>
 
