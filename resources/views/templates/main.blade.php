@@ -56,7 +56,7 @@
                         </li>
                     @else
                         @if (Route::has('register'))
-                            <li><a class="text-warning font-semibold" href="{{ url('/pro') }}">Zu Pro wechseln</a></li>
+                            <li><a class="pro-upgrade-btn" href="{{ url('/pro') }}">Zu Pro wechseln</a></li>
                         @endif
                         <li><a href="{{ route('login') }}">Login</a></li>
                     @endauth
@@ -96,7 +96,7 @@
                 </div>
             @else
                 @if (Route::has('register'))
-                    <a class="btn btn-ghost btn-sm text-warning" href="{{ url('/pro') }}">Zu Pro wechseln</a>
+                    <a class="btn btn-ghost btn-sm text-warning pro-upgrade-btn" href="{{ url('/pro') }}">Zu Pro wechseln</a>
                 @endif
                 <a class="btn btn-primary btn-sm" href="{{ route('login') }}">Login</a>
             @endauth
