@@ -28,6 +28,10 @@
                         unbegrenzt viele OneTimeTexts
                     </li>
                     <li class="flex items-center gap-2 text-base-content/40">
+                        <x-icons.check class="size-4 shrink-0" />
+                        bis zu 2.000 Zeichen
+                    </li>
+                    <li class="flex items-center gap-2 text-base-content/40">
                         <svg xmlns="http://www.w3.org/2000/svg" class="size-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
                         eigenes Dashboard
                     </li>
@@ -60,6 +64,10 @@
                     <li class="flex items-center gap-2">
                         <x-icons.check class="size-4 text-success shrink-0" />
                         unbegrenzt viele OneTimeTexts
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <x-icons.check class="size-4 text-success shrink-0" />
+                        bis zu 10.000 Zeichen pro Nachricht
                     </li>
                     <li class="flex items-center gap-2">
                         <x-icons.check class="size-4 text-success shrink-0" />

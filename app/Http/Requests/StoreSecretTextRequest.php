@@ -23,10 +23,12 @@ class StoreSecretTextRequest extends FormRequest
      */
     public function rules()
     {
+        $max = $this->user()?->subscribed() ? 10000 : 2000;
+
         return [
             //Key cant be checked here, because its set after
             //'key' => 'required|max:255|min:4|unique:texts',
-            'value' => 'required|max:2000|min:1'
+            'value' => "required|min:1|max:{$max}"
         ];
     }
 }

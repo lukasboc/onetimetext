@@ -71,12 +71,36 @@
                         rows="6"
                         autofocus
                     >{{ old('value') }}</textarea>
+                    <div class="flex justify-between items-center text-xs text-base-content/40 mt-1">
+                        <span id="char-count">0 / {{ auth()->user()?->subscribed() ? '10.000' : '2.000' }}</span>
+                        @auth
+                            @unless(auth()->user()->subscribed())
+                                <a href="{{ url('/pro') }}" class="link link-primary">Pro: bis zu 10.000 Zeichen</a>
+                            @endunless
+                        @else
+                            <a href="{{ url('/pro') }}" class="link link-primary">Pro: bis zu 10.000 Zeichen</a>
+                        @endauth
+                    </div>
                     @error('value')
                         <p class="text-error text-sm">{{ $message }}</p>
                     @enderror
                     @error('key')
                         <p class="text-error text-sm">{{ $message }}</p>
                     @enderror
+                    <script>
+                        (function () {
+                            var ta = document.getElementById('value');
+                            var counter = document.getElementById('char-count');
+                            var max = {{ auth()->user()?->subscribed() ? 10000 : 2000 }};
+                            function update() {
+                                var n = ta.value.length;
+                                counter.textContent = n.toLocaleString('de-DE') + ' / ' + max.toLocaleString('de-DE');
+                                counter.classList.toggle('text-error', n > max);
+                            }
+                            ta.addEventListener('input', update);
+                            update();
+                        })();
+                    </script>
                 </div>
                 <div class="mt-4">
                     <button type="submit" class="btn btn-primary w-full gap-2 text-base">

@@ -56,9 +56,26 @@
                         <textarea name="value" id="value" rows="5"
                                   class="textarea textarea-bordered w-full @error('value') textarea-error @enderror"
                                   placeholder="Tippe deine Nachricht hier ein …">{{ old('value') }}</textarea>
+                        <div class="flex justify-between items-center text-xs text-base-content/40 mt-1">
+                            <span id="char-count">0 / {{ auth()->user()?->subscribed() ? '10.000' : '2.000' }}</span>
+                        </div>
                         @error('value')
                             <p class="text-error text-xs mt-1">{{ $message }}</p>
                         @enderror
+                        <script>
+                            (function () {
+                                var ta = document.getElementById('value');
+                                var counter = document.getElementById('char-count');
+                                var max = {{ auth()->user()?->subscribed() ? 10000 : 2000 }};
+                                function update() {
+                                    var n = ta.value.length;
+                                    counter.textContent = n.toLocaleString('de-DE') + ' / ' + max.toLocaleString('de-DE');
+                                    counter.classList.toggle('text-error', n > max);
+                                }
+                                ta.addEventListener('input', update);
+                                update();
+                            })();
+                        </script>
                     </div>
                     <div class="mt-4">
                         <button type="submit" class="btn btn-primary w-full gap-2">
