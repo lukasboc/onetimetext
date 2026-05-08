@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="onetimetext">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'OneTimeText') }}</title>
+    <script>
+        (function () {
+            var stored = localStorage.getItem('theme');
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var theme = stored !== null ? stored : (prefersDark ? 'onetimetext' : 'onetimetext-light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
 </head>
@@ -16,6 +24,15 @@
             <x-icons.lock-closed class="size-5 text-primary" />
             OneTimeText
         </a>
+    </div>
+
+    {{-- Theme toggle (mobile) --}}
+    <div class="navbar-center md:hidden">
+        <label class="swap swap-rotate btn btn-ghost btn-circle btn-sm" title="Theme wechseln" id="theme-toggle-mobile-label">
+            <input type="checkbox" id="theme-toggle-mobile" />
+            <x-icons.sun class="swap-on size-5" />
+            <x-icons.moon class="swap-off size-5" />
+        </label>
     </div>
 
     {{-- Mobile hamburger --}}
@@ -49,7 +66,14 @@
     </div>
 
     {{-- Desktop nav --}}
-    <div class="navbar-end hidden md:flex gap-2">
+    <div class="navbar-end hidden md:flex gap-2 items-center">
+        {{-- Theme toggle --}}
+        <label class="swap swap-rotate btn btn-ghost btn-circle btn-sm" title="Theme wechseln">
+            <input type="checkbox" id="theme-toggle" />
+            <x-icons.sun class="swap-on size-5" />
+            <x-icons.moon class="swap-off size-5" />
+        </label>
+
         @if (Route::has('login'))
             @auth
                 <a class="btn btn-ghost btn-sm" href="{{ url('/dashboard') }}">Dashboard</a>
