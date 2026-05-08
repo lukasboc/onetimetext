@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-OneTimeText is a Laravel 10 web app (PHP 8.2) for sharing self-destructing secrets: a user pastes text, gets a URL with a random key, and the recipient can read it exactly once before the row is deleted. The UI is primarily German. A paid "Pro" tier is layered on top via Laravel Cashier + Stripe.
+OneTimeText is a Laravel 11 web app (PHP 8.2) for sharing self-destructing secrets: a user pastes text, gets a URL with a random key, and the recipient can read it exactly once before the row is deleted. The UI is primarily German. A paid "Pro" tier is layered on top via Laravel Cashier + Stripe.
 
 ## Commands
 
