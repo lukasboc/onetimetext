@@ -3,86 +3,126 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'OneTimeText' )}}</title>
-
-
-    <!-- Styles -->
-
-    <link href="{{asset('css/app.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <!-- JS -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <title>{{ config('app.name', 'OneTimeText') }}</title>
+    <script>
+        (function () {
+            var stored = localStorage.getItem('theme');
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var theme = stored !== null ? stored : (prefersDark ? 'onetimetext' : 'onetimetext-light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-
 </head>
-<body>
-<nav class="navbar navbar-expand-sm">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url('/') }}">OneTimeText</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon">
-                    <i style="color: white; font-size: 21pt" class="bi bi-list" id="navbar-icon"></i>
-                </span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+<body class="min-h-screen bg-base-100 text-base-content flex flex-col">
+
+<div class="navbar bg-base-200 shadow-md px-4">
+    <div class="navbar-start">
+        <a class="btn btn-ghost text-xl font-bold tracking-tight" href="{{ url('/') }}">
+            <x-icons.lock-closed class="size-5 text-primary" />
+            OneTimeText
+        </a>
+    </div>
+
+    {{-- Theme toggle (mobile) --}}
+    <div class="navbar-center md:hidden">
+        <label class="swap swap-rotate btn btn-ghost btn-circle btn-sm" title="Theme wechseln" id="theme-toggle-mobile-label">
+            <input type="checkbox" id="theme-toggle-mobile" />
+            <x-icons.sun class="swap-on size-5" />
+            <x-icons.moon class="swap-off size-5" />
+        </label>
+    </div>
+
+    {{-- Mobile hamburger --}}
+    <div class="navbar-end md:hidden">
+        <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost">
+                <x-icons.bars-3 />
+            </label>
+            <ul tabindex="0" class="dropdown-content menu menu-sm bg-base-200 rounded-box z-50 mt-3 w-52 p-2 shadow">
                 @if (Route::has('login'))
                     @auth
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-link" href="{{ url('/dashboard') }}">Dashboard</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle btn-lg" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person-circle"></i>
+                        <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+                        <li><a href="{{ url('/membership') }}">Konto</a></li>
+                        <li><a href="{{ url('/billing-portal') }}">Abonnement</a></li>
+                        <li>
+                            <a href="{{ url('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();">
+                                Logout
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{{ url('/membership') }}">Konto</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/billing-portal') }}">Abonnement</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{{ url('logout') }}"
-                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none">
-                                        @csrf
-                                    </form>
-                                </li>
-                            </ul>
+                            <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" class="hidden">@csrf</form>
                         </li>
                     @else
                         @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link text-warning" href="{{ url('/pro') }}">Zu Pro wechseln</a>
-                            </li>
+                            <li><a class="pro-upgrade-btn" href="{{ url('/pro') }}">Zu Pro wechseln</a></li>
                         @endif
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Login</a>
-                        </li>
+                        <li><a href="{{ route('login') }}">Login</a></li>
                     @endauth
                 @endif
             </ul>
         </div>
     </div>
-</nav>
 
+    {{-- Desktop nav --}}
+    <div class="navbar-end hidden md:flex gap-2 items-center">
+        {{-- Theme toggle --}}
+        <label class="swap swap-rotate btn btn-ghost btn-circle btn-sm" title="Theme wechseln">
+            <input type="checkbox" id="theme-toggle" />
+            <x-icons.sun class="swap-on size-5" />
+            <x-icons.moon class="swap-off size-5" />
+        </label>
 
-<main>
-    <div class="container">
-        @include('partials.alerts')
-        @yield('content')
+        @if (Route::has('login'))
+            @auth
+                <a class="btn btn-ghost btn-sm" href="{{ url('/dashboard') }}">Dashboard</a>
+                <div class="dropdown dropdown-end">
+                    <label tabindex="0" class="btn btn-ghost btn-sm btn-circle">
+                        <x-icons.user-circle class="size-6" />
+                    </label>
+                    <ul tabindex="0" class="dropdown-content menu menu-sm bg-base-200 rounded-box z-50 mt-3 w-48 p-2 shadow">
+                        <li><a href="{{ url('/membership') }}">Konto</a></li>
+                        <li><a href="{{ url('/billing-portal') }}">Abonnement</a></li>
+                        <li><hr class="my-1 border-base-300"></li>
+                        <li>
+                            <a href="{{ url('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">@csrf</form>
+                        </li>
+                    </ul>
+                </div>
+            @else
+                @if (Route::has('register'))
+                    <a class="btn btn-ghost btn-sm text-warning pro-upgrade-btn" href="{{ url('/pro') }}">Zu Pro wechseln</a>
+                @endif
+                <a class="btn btn-primary btn-sm" href="{{ route('login') }}">Login</a>
+            @endauth
+        @endif
     </div>
+</div>
+
+<main class="flex-1 container mx-auto px-4 py-8 max-w-6xl">
+    @include('partials.alerts')
+    @yield('content')
 </main>
-<footer class="mt-5 mb-4">
-    <div class="text-center pt-5 pb-4">
-        <h3>OneTimeText.</h3>
-        <a class="nav-link d-inline" href="{{ url('/impressum') }}">Impressum</a> | <a class="nav-link d-inline" href="{{ url('/datenschutz') }}">Datenschutz</a> | <a class="nav-link d-inline" href="https://github.com/lukasboc/onetimetext" target="_blank">Github</a> | <a class="nav-link d-inline" href="{{ url('/contact') }}">Kontakt</a>
+
+<footer class="footer footer-center py-8 bg-base-200 text-base-content mt-auto">
+    <div>
+        <p class="text-xl font-bold tracking-tight mb-3">OneTimeText.</p>
+        <div class="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm text-base-content/70">
+            <a class="link link-hover" href="{{ url('/impressum') }}">Impressum</a>
+            <span>|</span>
+            <a class="link link-hover" href="{{ url('/datenschutz') }}">Datenschutz</a>
+            <span>|</span>
+            <a class="link link-hover" href="https://github.com/lukasboc/onetimetext" target="_blank">Github</a>
+            <span>|</span>
+            <a class="link link-hover" href="{{ url('/contact') }}">Kontakt</a>
+        </div>
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
 </body>
 </html>

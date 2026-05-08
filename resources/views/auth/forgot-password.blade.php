@@ -1,59 +1,42 @@
 @extends('templates.main')
 
 @section('content')
+<div class="min-h-[60vh] flex items-center justify-center py-12">
+    <div class="card bg-base-200 shadow-xl w-full max-w-md">
+        <div class="card-body gap-5">
+            <div class="text-center">
+                <h1 class="text-2xl font-bold">Passwort vergessen.</h1>
+                <p class="text-base-content/60 text-sm mt-1">
+                    Gib deine E-Mail-Adresse ein – du erhältst einen Link zum Zurücksetzen per Mail.
+                </p>
+            </div>
 
-    <section class="p-3 p-md-4 p-xl-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
-                    <div class="card border border-light-subtle rounded-4">
-                        <div class="card-body p-3 p-md-4 p-xl-5">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="mb-5">
-                                        <h2 class="h4 text-center">Passwort vergessen.</h2>
-                                        <h3 class="fs-6 fw-normal text-lightgray text-center m-0">Bitte gib deine E-Mail-Adresse ein. Nach dem Absenden des Formulars erhältst du einen Link zum Zurücksetzen deines Passworts per Mail.</h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <form method="POST" action="{{ route('password.email') }}">
-                                @csrf
-                                <div class="row gy-3 overflow-hidden">
-
-                                    <div class="col-12">
-                                        <div class=" mb-3">
-                                            <label for="email" class="form-label">E-Mail</label>
-                                            <input name="email" type="email" class="form-control form-element @error('email') is-invalid @enderror" id="email" aria-describedby="email">
-                                            @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                {{ $message }}
-                                            </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        @if(session('status') === 'Wir haben dir den Link zum Zurücksetzen deines Passworts per E-Mail geschickt!')
-                                            <div class="col-12">
-                                                <p class="text-success text-center">Wir haben dir den Link zum Zurücksetzen deines Passworts per E-Mail geschickt!</p>
-                                            </div>
-                                        @endif
-                                        <div class="d-grid">
-                                            <button class="btn bsb-btn-xl btn-primary" type="submit">Zurücksetzen
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <hr class="mt-5 mb-4 border-secondary-subtle">
-                                        <p class="m-0 text-lightgray text-center">Passwort wieder eingefallen?<br>Zum <a href="{{ url('/login') }}" class="link-primary text-decoration-none">Login</a></p>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+            @if(session('status'))
+                <div role="alert" class="alert alert-success">
+                    <x-icons.check class="size-5 shrink-0" />
+                    <span>{{ session('status') }}</span>
                 </div>
+            @endif
+
+            <form method="POST" action="{{ route('password.email') }}" class="flex flex-col gap-4">
+                @csrf
+                <div class="form-control gap-1">
+                    <label class="label" for="email"><span class="label-text">E-Mail</span></label>
+                    <input name="email" type="email" id="email"
+                           class="input input-bordered w-full @error('email') input-error @enderror"
+                           autocomplete="email" />
+                    @error('email')
+                        <p class="text-error text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full">Link zusenden</button>
+            </form>
+
+            <div class="text-center text-sm">
+                <a href="{{ url('/login') }}" class="link link-hover text-base-content/50">Zurück zum Login</a>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 @endsection

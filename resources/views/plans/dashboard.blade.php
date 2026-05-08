@@ -1,207 +1,156 @@
 @extends('templates.main')
 
 @section('content')
-    <div class="px-4 py-5">
+
+<div class="py-8">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold">
+            Dein <span class="text-primary">OneTimeText</span> Dashboard.
+        </h1>
+        <p class="text-base-content/60 mt-1">
+            Erstelle neue OneTimeTexts und verwalte deine vorhandenen Nachrichten.
+        </p>
+    </div>
+
+    {{-- Link-Banner nach dem Erstellen --}}
+    @if(session('secreturl'))
+        <div role="alert" class="alert alert-success mb-6 flex-col items-start gap-3 text-left">
+            <div class="flex items-center gap-2">
+                <x-icons.check class="size-5 shrink-0" />
+                <span class="font-semibold">Dein Link wurde erstellt!</span>
+            </div>
+            <div class="join w-full max-w-lg">
+                <input id="secret-url-field" type="text"
+                       class="input join-item flex-1 font-mono text-sm"
+                       value="{{ session('secreturl') }}" readonly />
+                <button id="copy-btn" class="btn btn-primary join-item gap-2">
+                    <x-icons.clipboard class="size-4" />
+                    <span id="copy-text">Kopieren</span>
+                </button>
+            </div>
+        </div>
         <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
-        <div class="py-5">
+        <script>
+            var clipboard = new ClipboardJS('#copy-btn', {
+                text: function() { return document.getElementById('secret-url-field').value; }
+            });
+            clipboard.on('success', function(e) {
+                document.getElementById('copy-text').textContent = '✓ Kopiert!';
+                e.clearSelection();
+            });
+        </script>
+    @endif
 
-            <div class="px-4 py-5 text-center">
-                <div class="py-5">
-                    <h1 class="display-5 fw-bold text-white">Dein <span class="highlight-text">OneTimeText</span>
-                        Dashboard.
-                    </h1>
-                    <div class="col-lg-7 mx-auto text-lightgray">
-                        <p class="fs-5 mb-4">Über dein persönliches Dashboard kannst du neue OneTimeTexts erstellen und
-                            vorhandene
-                            OneTimeTexts verwalten.</p>
+    <div class="grid lg:grid-cols-2 gap-8 mb-10">
+
+        {{-- Formular --}}
+        <div class="card bg-base-200 shadow-xl">
+            <div class="card-body gap-4">
+                <h2 class="card-title text-lg">Neuen OneTimeText erstellen</h2>
+                <form id="save-secret-form" method="POST" action="{{ route('text.secret.store') }}">
+                    @csrf
+                    <div class="form-control gap-1">
+                        <label class="label" for="value">
+                            <span class="label-text">Geheime Nachricht</span>
+                        </label>
+                        <textarea name="value" id="value" rows="5"
+                                  class="textarea textarea-bordered w-full @error('value') textarea-error @enderror"
+                                  placeholder="Tippe deine Nachricht hier ein …">{{ old('value') }}</textarea>
+                        @error('value')
+                            <p class="text-error text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary w-full gap-2">
+                            <x-icons.link class="size-4" />
+                            Link erstellen
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-                    @if(session('secreturl'))
-                        <div class="row">
-                            <div class="col-12 col-sm-10 col-md-8 mx-auto">
-                                <div class="alert alert-success align-items-center" role="alert">
-                                    <i style="font-size:19pt" class="bi bi-check-lg me-2"></i>
-                                    <div>
-                                        Dein Link wurde erstellt:<br>
-                                        <span id="foo">{{ session('secreturl') }}</span>
-                                    </div>
-                                    <div class="text-center">
-                                        <button id="copy-btn" class="btn btn-outline-success mt-3"
-                                                data-clipboard-target="#foo">
-                                            <i class="bi bi-clipboard-check"></i> <span id="copy-text">Kopieren</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <script>
-                            var successMessage = document.getElementById('copied');
-                            var btn = document.getElementById('copy-btn');
-                            var clipboard = new ClipboardJS(btn);
-
-                            clipboard.on('success', function (e) {
-                                btn.classList.remove("btn-outline-primary");
-                                btn.classList.add("btn-outline-success");
-                                document.getElementById("copy-text").innerHTML = 'Kopiert!';
-                                e.clearSelection();
-                            });
-
-                            clipboard.on('error', function (e) {
-                                console.error('Action:', e.action);
-                                console.error('Trigger:', e.trigger);
-                            });
-                        </script>
+        {{-- Stats --}}
+        <div class="stats stats-vertical shadow bg-base-200 w-full">
+            <div class="stat">
+                <div class="stat-title">Ungelesene OneTimeTexts</div>
+                <div class="stat-value text-primary">{{ $textsAmount }}</div>
+            </div>
+            <div class="stat">
+                <div class="stat-title">Ältester OneTimeText</div>
+                <div class="stat-value text-2xl">
+                    @if($textsAmount === 0)
+                        –
+                    @else
+                        {{ date_format(date_timezone_set(date_create_from_format("Y-m-d H:i:s", $texts[sizeof($texts)-1]->created_at, new DateTimeZone('UTC')), new DateTimeZone('Europe/Berlin')), "d.m.Y") }}
                     @endif
-
-                    <div class="row mt-5">
-                        <div class="col-md-6 justify-content-center align-self-center">
-                            <form id="save-secret-form" class="mt-4" method="POST"
-                                  action="{{ route('text.secret.store') }}">
-                                @csrf
-                                <div class="mb-3">
-                            <textarea name="value" type="text" class="form-control @error('value') is-invalid @enderror"
-                                      id="value" aria-describedby="value"
-                                      placeholder="Tippe deine Nachricht hier ein ..."
-                                      rows="5">{{ old('value') }}</textarea>
-                                    @error('value')
-                                    <span class="invalid-feedback" role="alert">
-                    {{ $message }}
-                </span>
-                                    @enderror
-                                    @error('key')
-                                    <span class="invalid-feedback" role="alert">
-                    {{ $message }}
-                </span>
-                                    @enderror
-                                    @error('user_id')
-                                    <span class="invalid-feedback" role="alert">
-                    {{ $message }}
-                </span>
-                                    @enderror
-                                </div>
-                                <button type="submit" id="create-link"
-                                        class="btn btn-primary highlight-background px-4 py-2">
-                                    Link erstellen
-                                </button>
-                            </form>
-                        </div>
-                        <div class="col-md-6 mx-auto mx-sm-0 mt-5 mt-sm-0">
-
-                            <div class="row">
-                                <div class="col-sm mt-4">
-                                    <div class="card text-center">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{$textsAmount}}</h5>
-                                            <p class="card-text small">ungelesene OneTimeTexts</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm mt-4">
-                                    <div class="card text-center">
-                                        <div class="card-body">
-                                            @if($textsAmount === 0)
-                                                <h5 class="card-title">-</h5>
-                                            @else
-                                                <h5 class="card-title">{{ date_format(date_timezone_set(date_create_from_format("Y-m-d H:i:s",$texts[sizeof($texts)-1]->created_at, new DateTimeZone('UTC')),new DateTimeZone('Europe/Berlin')),"d.m.Y") }}</h5>
-                                            @endif
-                                            <p class="card-text">ältester OneTimeText</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm mt-4">
-                                    <div class="card text-center">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{$membership}}</h5>
-                                            <p class="card-text small">Abostatus</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm mt-4">
-                                    <div class="card text-center">
-                                        <div class="card-body">
-                                            @if($ended)
-                                                <h5 class="card-title">Nein</h5>
-                                            @else
-                                                <h5 class="card-title">Ja</h5>
-                                            @endif
-                                            <p class="card-text">Aboverlängerung aktiv</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
                 </div>
             </div>
-
-            <section id="about">
-                <div class="container mt-5">
-                    <div class="row pt-5 mb-5">
-                        <div class=" justify-content-center align-self-center">
-                            <h1>Deine OneTimeTexts.</h1>
-
-                            @if($textsAmount !== 0)
-                                <table class="table table-striped table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">Link</th>
-                                        <th scope="col">Text</th>
-                                        <th scope="col">Erstellzeitpunkt</th>
-                                        <th scope="col">Aktionen</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach ($texts as $text)
-                                        <tr>
-                                            <td>/{{$text->key}}</td>
-                                            @if(strlen($text->value) > 15)
-                                                <td>{{substr($text->value, 0,14)}} ...</td>
-                                            @else
-                                                <td>{{$text->value}}</td>
-                                            @endif
-                                            <td>{{date_format(date_timezone_set(date_create_from_format("Y-m-d H:i:s",$text->created_at, new DateTimeZone('UTC')),new DateTimeZone('Europe/Berlin')),"d.m.Y H:i")}}</td>
-                                            <td>
-                                                <form method="POST"
-                                                      action="{{ route('deleteText') }}">
-                                                    @csrf
-                                                    <div class="">
-                                                        <input name="key" type="hidden" id="key"
-                                                               value="{{$text->key}}"/>
-                                                        @error('key')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            {{ $message }}
-                                                        </span>
-                                                        @enderror
-                                                        @error('user_id')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            {{ $message }}
-                                                        </span>
-                                                        @enderror
-                                                    </div>
-                                                    <button type="submit" class="btn btn-sm btn-danger"><i
-                                                            class="bi bi-trash"></i> Löschen
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-
-                                    </tbody>
-                                </table>
-                            @else
-                                <div class="alert alert-light" role="alert">
-                                    Alle deine OneTimeTexts wurden gelesen.
-                                </div>
-                            @endif
-                        </div>
-                    </div>
+            <div class="stat">
+                <div class="stat-title">Abostatus</div>
+                <div class="stat-value text-2xl">
+                    <span class="badge badge-primary badge-lg">{{ $membership }}</span>
                 </div>
-            </section>
+            </div>
+            <div class="stat">
+                <div class="stat-title">Aboverlängerung</div>
+                <div class="stat-value text-2xl">
+                    @if($ended)
+                        <span class="badge badge-error badge-lg">Inaktiv</span>
+                    @else
+                        <span class="badge badge-success badge-lg">Aktiv</span>
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
+
+    {{-- Tabelle --}}
+    <div>
+        <h2 class="text-xl font-bold mb-4">Deine OneTimeTexts.</h2>
+        @if($textsAmount !== 0)
+            <div class="overflow-x-auto rounded-xl border border-base-300">
+                <table class="table table-zebra">
+                    <thead>
+                        <tr>
+                            <th>Link</th>
+                            <th>Vorschau</th>
+                            <th>Erstellt am</th>
+                            <th>Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($texts as $text)
+                            <tr>
+                                <td class="font-mono text-sm">/{{ $text->key }}</td>
+                                <td class="text-base-content/70">
+                                    {{ strlen($text->value) > 15 ? substr($text->value, 0, 14) . ' …' : $text->value }}
+                                </td>
+                                <td class="text-sm">
+                                    {{ date_format(date_timezone_set(date_create_from_format("Y-m-d H:i:s", $text->created_at, new DateTimeZone('UTC')), new DateTimeZone('Europe/Berlin')), "d.m.Y H:i") }}
+                                </td>
+                                <td>
+                                    <form method="POST" action="{{ route('deleteText') }}">
+                                        @csrf
+                                        <input name="key" type="hidden" value="{{ $text->key }}" />
+                                        <button type="submit" class="btn btn-error btn-sm gap-1">
+                                            <x-icons.trash class="size-4" />
+                                            Löschen
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <div role="alert" class="alert alert-info">
+                <x-icons.check class="size-5 shrink-0" />
+                <span>Alle deine OneTimeTexts wurden bereits gelesen.</span>
+            </div>
+        @endif
+    </div>
+</div>
 
 @endsection

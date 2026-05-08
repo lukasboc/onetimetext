@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@source "../../storage/framework/views/*.php";
+
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+    name: "onetimetext";
+    default: true;
+    prefersdark: true;
+    color-scheme: dark;
+
+    --color-base-100: oklch(14% 0.03 264);
+    --color-base-200: oklch(17% 0.04 264);
+    --color-base-300: oklch(20% 0.04 264);
+    --color-base-content: oklch(90% 0.01 264);
+
+    --color-primary: oklch(55% 0.22 264);
+    --color-primary-content: oklch(98% 0.005 264);
+
+    --color-secondary: oklch(50% 0.18 264);
+    --color-secondary-content: oklch(98% 0.005 264);
+
+    --color-accent: oklch(70% 0.15 200);
+    --color-accent-content: oklch(10% 0.02 200);
+
+    --color-neutral: oklch(25% 0.04 264);
+    --color-neutral-content: oklch(85% 0.01 264);
+
+    --color-info: oklch(65% 0.15 220);
+    --color-success: oklch(65% 0.18 150);
+    --color-warning: oklch(75% 0.18 70);
+    --color-error: oklch(60% 0.22 20);
+
+    --rounded-box: 0.75rem;
+    --rounded-btn: 0.5rem;
+}
+
+@plugin "daisyui/theme" {
+    name: "onetimetext-light";
+    default: false;
+    color-scheme: light;
+
+    --color-base-100: oklch(97% 0.01 264);
+    --color-base-200: oklch(92% 0.02 264);
+    --color-base-300: oklch(86% 0.03 264);
+    --color-base-content: oklch(18% 0.04 264);
+
+    --color-primary: oklch(45% 0.22 264);
+    --color-primary-content: oklch(97% 0.005 264);
+
+    --color-secondary: oklch(40% 0.18 264);
+    --color-secondary-content: oklch(97% 0.005 264);
+
+    --color-accent: oklch(55% 0.18 200);
+    --color-accent-content: oklch(97% 0.005 200);
+
+    --color-neutral: oklch(80% 0.03 264);
+    --color-neutral-content: oklch(25% 0.04 264);
+
+    --color-info: oklch(55% 0.15 220);
+    --color-success: oklch(50% 0.18 150);
+    --color-warning: oklch(60% 0.18 70);
+    --color-error: oklch(50% 0.22 20);
+
+    --rounded-box: 0.75rem;
+    --rounded-btn: 0.5rem;
+}
+
+@keyframes pro-shine {
+    0%   { left: -80%; }
+    100% { left: 130%; }
+}
+
+.pro-upgrade-btn {
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.pro-upgrade-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -80%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        oklch(98% 0.06 70 / 0.35),
+        transparent
+    );
+    transform: skewX(-15deg);
+    pointer-events: none;
+    opacity: 0;
+}
+
+.pro-upgrade-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0.15em;
+    left: 0.3rem;
+    right: 0.3rem;
+    height: 1.5px;
+    background: oklch(75% 0.18 70);
+    border-radius: 1px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.35s ease;
+}
+
+.pro-upgrade-btn:hover::before {
+    opacity: 1;
+    animation: pro-shine 0.55s ease forwards;
+}
+
+.pro-upgrade-btn:hover::after {
+    transform: scaleX(1);
+}

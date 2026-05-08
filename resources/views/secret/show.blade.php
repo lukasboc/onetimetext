@@ -1,67 +1,57 @@
 @extends('templates.main')
 
 @section('content')
-    <div class="px-4 py-5 text-center">
-        <div class="py-5">
-            <h1 class="display-5 fw-bold text-white">Dein <span class="highlight-text">OneTimeText</span>.
-            </h1>
-            <div class="col-lg-7 mx-auto text-lightgray">
-                <p class="fs-5 mb-4">Du hast einen OneTimeText erhalten. Dies ist eine Nachricht, die einmalig gelesen werden kann, bevor sie aus dem Speicher gelöscht wird. Klicke auf "OneTimeText öffnen", um die Nachricht zu lesen.</p>
-            </div>
 
-            <div class="row mt-5">
-                <div class="col-sm-6 justify-content-center align-self-center">
-                    <div class="card mb-4">
-                        <p></p>
-                    </div>
-                    <div class="row">
-                        <div class="col text-center">
-                            <button type="button" class="btn btn-primary highlight-background px-4 py-2"
-                                    onclick="event.preventDefault(); document.getElementById('delete-secret-form-{{ $secret->key }}').submit();">
-                                OneTimeText öffnen
-                            </button>
-                            <div class="alert alert-info mt-4" role="alert">
-                                Achtung: Nachdem der OneTimeText geöffnet wurde, wird die Nachricht zerstört und kann nicht mehr abgerufen werden.
-                            </div>
-                            <form id="delete-secret-form-{{ $secret->key }}" action="{{ route('text.secret.destroy', $secret->key) }}"
-                                  method="POST" style="display: none">
-                                @csrf
-                                @method("DELETE")
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="justify-content-center align-self-center col-8 col-sm-6 mx-auto mx-sm-0 mt-5 mt-sm-0">
-                    <img class="index-image" src="{{asset('images/secret.png')}}" alt="image">
+<div class="min-h-[70vh] flex flex-col items-center justify-center py-12">
+
+    <div class="w-full max-w-lg text-center">
+
+        {{-- Heading --}}
+        <div class="mb-8">
+            <div class="flex justify-center mb-4">
+                <div class="p-4 rounded-full bg-primary/10 border border-primary/30">
+                    <x-icons.lock-closed class="size-12 text-primary" />
                 </div>
             </div>
+            <h1 class="text-3xl md:text-4xl font-bold mb-3">
+                Du hast eine geheime<br>Nachricht erhalten.
+            </h1>
+            <p class="text-base-content/60 text-base">
+                Jemand hat dir einen <strong class="text-base-content">OneTimeText</strong> geschickt.
+            </p>
+        </div>
+
+        {{-- Warnung --}}
+        <div role="alert" class="alert alert-warning mb-8 text-left">
+            <x-icons.exclamation-triangle class="size-6 shrink-0" />
+            <div>
+                <p class="font-semibold">Achtung: Diese Nachricht kann nur einmal geöffnet werden.</p>
+                <p class="text-sm opacity-80 mt-1">Nach dem Öffnen wird die Nachricht unwiederbringlich gelöscht und kann nicht erneut abgerufen werden.</p>
+            </div>
+        </div>
+
+        {{-- Öffnen-Button --}}
+        <button
+            type="button"
+            class="btn btn-primary btn-lg w-full gap-3 text-lg"
+            onclick="event.preventDefault(); document.getElementById('delete-secret-form-{{ $secret->key }}').submit();"
+        >
+            <x-icons.lock-open class="size-6" />
+            OneTimeText jetzt öffnen
+        </button>
+
+        <p class="text-xs text-base-content/40 mt-4">
+            Mit dem Klick auf den Button wird die Nachricht geladen und danach dauerhaft gelöscht.
+        </p>
+
+        <form id="delete-secret-form-{{ $secret->key }}"
+              action="{{ route('text.secret.destroy', $secret->key) }}"
+              method="POST"
+              class="hidden">
+            @csrf
+            @method('DELETE')
+        </form>
     </div>
-        <section id="about">
-            <div class="container mt-5">
-                <header class="text-center mb-5">
-                    <h5 class="text-uppercase">Über</h5>
-                    <h1>Informationen zu <span class="highlight-text">OneTimeText</span>.</h1>
-                    <p>In diesem Bereich finden Sie Informationen dazu, wozu dieses Tool dient.</p>
-                </header>
-                <div class="row mb-5">
-                    <div class="col-sm-8 col-md-6 justify-content-center align-self-center">
-                        <h1>Was ist OneTimeText?</h1>
-                        <p>OneTimeText ist ein Werkzeug, das Ihnen dabei helfen soll, sensible Daten wie z.B. Passwörter zu versenden, ohne dass diese in Chat- oder E-Mailverläufen auftauchen. Sie können den Text, den Sie mit jemandem teilen möchten einfach in eine OneTimeText-Nachricht verpacken und den Link versenden. Der von Ihnen verpackte Text, der ausschließlich durch diesen Link aufrufbar ist, kann nur 1x gelesen werden, bevor die Nachricht aus System gelöscht wird. Sie brauchen sich also keine Gedanken darüber zu machen, dass weitere Personen auf die geheime Nachricht zugreifen können.</p>
-                    </div>
-                    <div class="text-center justify-content-center align-self-center col-8 col-sm-4 col-md-6 mx-auto mx-sm-0 mt-5 mt-sm-0">
-                        <img src="{{asset('images/whatis.png')}}" alt="image" class="img-fluid index-image" id="what-is-image">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="text-center justify-content-center align-self-center col-8 col-sm-4 col-md-6 mx-auto mx-sm-0 mt-5 mt-sm-0 d-none d-sm-block">
-                        <img src="{{asset('images/how.png')}}" alt="image" class="img-fluid index-image" id="how-image">
-                    </div>
-                    <div class="col-sm-8 col-md-6 justify-content-center align-self-center">
-                        <h1>Wie benutze ich OneTimeText?</h1>
-                        <p>Die Nutzung von OneTimeText könnte nicht einfacher sein. Sie benötigen keinen Benutzeraccount um dieses Tool nutzen zu können. Geben Sie einfach Ihren geheimen Text in das Feld auf der Startseite ein und klicken Sie auf "Link erstellen". Kopieren Sie den Link und versenden Sie diesen an den Empfänger per Mail, Signal, Whatsapp oder auch per Brief. Der Nachricht-Empfänger muss zum lesen der Nachricht lediglich auf den Link klicken und auf den Button "OneTimeText öffnen" klicken.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+</div>
 
 @endsection

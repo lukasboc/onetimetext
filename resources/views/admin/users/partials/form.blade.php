@@ -1,53 +1,58 @@
 @csrf
-<div class="mb-3">
-    <label for="name" class="form-label">Name</label>
-    <input name="name"  type="text" class="form-control @error('name') is-invalid @enderror" id="name" aria-describedby="name"
-           value="{{ old('name') }}@isset($user){{ $user->name }}@endisset">
-    @error('name')
-    <span class="invalid-feedback" role="alert">
-                    {{ $message }}
-                </span>
-    @enderror
-</div>
-<div class="mb-3">
-    <label for="email" class="form-label">Email address</label>
-    <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" aria-describedby="email"
-           value="{{ old('email') }}@isset($user){{ $user->email }}@endisset">
-    @error('email')
-    <span class="invalid-feedback" role="alert">
-                    {{ $message }}
-                </span>
-    @enderror
-</div>
-@isset($create)
-<div class="mb-3">
-    <label for="password" class="form-label">Password</label>
-    <input name="password" type="password" class="form-control @error('password') is-invalid @enderror" id="password" aria-describedby="password">
-    @error('password')
-    <span class="invalid-feedback" role="alert">
-                    {{ $message }}
-                </span>
-    @enderror
-</div>
-<div class="mb-3">
-    <label for="password_confirmation" class="form-label">Password Confirm</label>
-    <input name="password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" aria-describedby="password_confirmation">
-    @error('password_confirmation')
-    <span class="invalid-feedback" role="alert">
-                    {{ $message }}
-                </span>
-    @enderror
-</div>
-@endisset
-<div class="mb-3">
-    @foreach($roles as $role)
-        <div class="form-check">
-            <input class="form-check-input" name="roles[]"
-                   type="checkbox" value="{{ $role->id }}" id="{{ $role->name }}" @isset($user) @if(in_array($role->id,$user->roles->pluck('id')->toArray())) checked @endif @endisset>
-            <label class="form-ckeck-label" for="{{ $role->name }}">
-                {{ $role->name }}
-            </label>
+
+<div class="flex flex-col gap-4">
+    <div class="form-control gap-1">
+        <label class="label" for="name"><span class="label-text">Name</span></label>
+        <input name="name" type="text" id="name"
+               class="input input-bordered @error('name') input-error @enderror"
+               value="{{ old('name') }}@isset($user){{ $user->name }}@endisset" />
+        @error('name')
+            <p class="text-error text-xs mt-1">{{ $message }}</p>
+        @enderror
+    </div>
+
+    <div class="form-control gap-1">
+        <label class="label" for="email"><span class="label-text">Email address</span></label>
+        <input name="email" type="email" id="email"
+               class="input input-bordered @error('email') input-error @enderror"
+               value="{{ old('email') }}@isset($user){{ $user->email }}@endisset" />
+        @error('email')
+            <p class="text-error text-xs mt-1">{{ $message }}</p>
+        @enderror
+    </div>
+
+    @isset($create)
+        <div class="form-control gap-1">
+            <label class="label" for="password"><span class="label-text">Password</span></label>
+            <input name="password" type="password" id="password"
+                   class="input input-bordered @error('password') input-error @enderror" />
+            @error('password')
+                <p class="text-error text-xs mt-1">{{ $message }}</p>
+            @enderror
         </div>
-    @endforeach
+
+        <div class="form-control gap-1">
+            <label class="label" for="password_confirmation"><span class="label-text">Password Confirm</span></label>
+            <input name="password_confirmation" type="password" id="password_confirmation"
+                   class="input input-bordered @error('password_confirmation') input-error @enderror" />
+            @error('password_confirmation')
+                <p class="text-error text-xs mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+    @endisset
+
+    <div class="flex flex-col gap-2">
+        @foreach($roles as $role)
+            <label class="label cursor-pointer justify-start gap-3">
+                <input class="checkbox checkbox-primary" name="roles[]"
+                       type="checkbox" value="{{ $role->id }}" id="{{ $role->name }}"
+                       @isset($user) @if(in_array($role->id, $user->roles->pluck('id')->toArray())) checked @endif @endisset />
+                <span class="label-text">{{ $role->name }}</span>
+            </label>
+        @endforeach
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
 </div>
-<button type="submit" class="btn btn-primary">Submit</button>
