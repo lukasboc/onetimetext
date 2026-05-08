@@ -180,7 +180,7 @@
                         <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                              data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                            @if(!auth()->user()->subscription()->cancelled())
+                            @if(!auth()->user()->subscription()->canceled())
                                     <p>
                                         Um dein Benutzerkonto zu löschen musst du zunächst dein Abo über das <a class="link-info" href="{{ url('/billing-portal') }}">Kundenportal</a> kündigen.
                                     </p>
