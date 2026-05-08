@@ -68,7 +68,7 @@ class PlanController extends Controller
 
 
         $ended = false;
-        if ($user->subscription('default')->cancelled()) {
+        if ($user->subscription('default')->canceled()) {
             $ended = true;
         }
 
@@ -94,7 +94,7 @@ class PlanController extends Controller
         if ($user->subscribed()) {
             $membership = "Pro";
 
-            if($user->subscription()->cancelled()){
+            if($user->subscription()->canceled()){
                 $endDate = date_format(date_timezone_set(date_create_from_format("Y-m-d H:i:s",auth()->user()->subscription()->ends_at, new DateTimeZone('UTC')),new DateTimeZone('Europe/Berlin')),"d.m.Y");
             }
         }
