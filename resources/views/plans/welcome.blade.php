@@ -1,42 +1,43 @@
 @extends('templates.main')
 
 @section('content')
-    <div class="px-4 py-5">
-        <div class="py-5">
-            <section id="about">
-                <div class=" mt-5">
-                    <header class="text-center mb-5">
-                    </header>
-                    <section class="mt-5">
-                    <div class="row pt-5 mb-5 mt-5">
-                        <div class="col-sm-8 col-md-6 justify-content-center align-self-center">
-                            <h1>Herzlich Willkommen!</h1>
-                            <p>
-                                Ich freue mich, dass du dich für OneTimeText Pro entschieden hast.
-                                Nachdem dein Abo erfolgreich angelegt wurde, kannst du nun die Navigation oben rechts verwenden, um auf dein <a href="{{ url('dashboard') }}">persönliches Dashboard</a> zu gelangen.
-                            </p>
-                            <p>
-                                Zusätzlich gelangst du über das <i class="bi bi-person-circle"></i> Icon in die Kontoeinstellungen navigieren, um dein Passwort oder deine E-Mail-Adresse zu ändern.
-                                über den Menüpunkt "Abonnement" gelangst du direkt in das Stripe Kundenportal und kannst dein Abonnement bei Bedarf Kündigen oder deine Zahlungsinformationen bearbeiten.
-                            </p>
-                            <p>
-                                Hast du Fragen oder Anmerkungen zu OneTimeText, nutze gerne das <a href="{{ url('contact') }}">Kontaktformular</a>.
-                            </p>
-                            <p>
-                                Viel Spaß bei der Nutzung!<br>
-                                Lukas von OneTimeText
-                            </p>
-                        </div>
-                        <div class="text-center justify-content-center align-self-center col-8 col-sm-4 col-md-6 mx-auto mx-sm-0 mt-5 mt-sm-0">
-                            <img src="{{asset('images/welcome.png')}}" alt="image" class="img-fluid index-image" id="what-is-image">
-                        </div>
-                    </div>
-                    </section>
 
-                </div>
-            </section>
+<div class="min-h-[60vh] flex items-center py-12">
+    <div class="grid md:grid-cols-2 gap-12 items-center w-full">
+        <div>
+            <div class="flex items-center gap-3 mb-6">
+                <x-icons.check class="size-10 text-success" />
+                <h1 class="text-3xl font-bold">Herzlich Willkommen!</h1>
+            </div>
+            <div class="flex flex-col gap-4 text-base-content/70 leading-relaxed">
+                <p>
+                    Ich freue mich, dass du dich für OneTimeText Pro entschieden hast.
+                    Nachdem dein Abo erfolgreich angelegt wurde, kannst du über die Navigation oben rechts auf dein
+                    <a href="{{ url('dashboard') }}" class="link link-primary">persönliches Dashboard</a> gelangen.
+                </p>
+                <p>
+                    Über das Benutzer-Icon gelangst du in die Kontoeinstellungen, um dein Passwort oder deine
+                    E-Mail-Adresse zu ändern. Über den Menüpunkt „Abonnement" erreichst du direkt das Stripe Kundenportal.
+                </p>
+                <p>
+                    Hast du Fragen oder Anmerkungen?
+                    Nutze gerne das <a href="{{ url('contact') }}" class="link link-primary">Kontaktformular</a>.
+                </p>
+                <p class="text-base-content/50">
+                    Viel Spaß bei der Nutzung!<br>
+                    Lukas von OneTimeText
+                </p>
+            </div>
+            <div class="mt-6">
+                <a href="{{ url('dashboard') }}" class="btn btn-primary gap-2">
+                    Zum Dashboard
+                </a>
+            </div>
+        </div>
+        <div class="flex justify-center">
+            <img src="{{ asset('images/welcome.png') }}" alt="Willkommen" class="max-h-72 object-contain">
         </div>
     </div>
-
+</div>
 
 @endsection

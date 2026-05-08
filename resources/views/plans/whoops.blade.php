@@ -1,31 +1,27 @@
 @extends('templates.main')
 
 @section('content')
-    <div class="px-4 py-5">
-        <div class="py-5">
-            <section id="about">
-                <div class=" mt-5">
-                    <header class="text-center mb-5">
-                    </header>
-                    <section class="mt-5">
-                    <div class="row pt-5 mb-5 mt-5">
-                        <div class="col-sm-8 col-md-6 justify-content-center align-self-center">
-                            <h1>Oh nein!</h1>
-                            <p>
-                                Beim Abschluss deines Abonnements ist etwas fehlgeschlagen.
-                                Bitte versuche es erneut: <a href="{{url('order')}}">Klicke hier</a>
-                            </p>
-                        </div>
-                        <div class="text-center justify-content-center align-self-center col-8 col-sm-4 col-md-6 mx-auto mx-sm-0 mt-5 mt-sm-0">
-                            <img src="{{asset('images/error.png')}}" alt="image" class="img-fluid index-image" id="what-is-image">
-                        </div>
-                    </div>
-                    </section>
 
-                </div>
-            </section>
+<div class="min-h-[60vh] flex items-center py-12">
+    <div class="grid md:grid-cols-2 gap-12 items-center w-full">
+        <div>
+            <div class="flex items-center gap-3 mb-6">
+                <x-icons.exclamation-triangle class="size-10 text-error" />
+                <h1 class="text-3xl font-bold">Oh nein!</h1>
+            </div>
+            <div role="alert" class="alert alert-error mb-6">
+                <x-icons.exclamation-triangle class="size-5 shrink-0" />
+                <span>Beim Abschluss deines Abonnements ist etwas fehlgeschlagen.</span>
+            </div>
+            <p class="text-base-content/70 mb-6">Bitte versuche es erneut.</p>
+            <a href="{{ url('order') }}" class="btn btn-primary gap-2">
+                Erneut versuchen
+            </a>
+        </div>
+        <div class="hidden md:flex justify-center">
+            <img src="{{ asset('images/error.png') }}" alt="Fehler" class="max-h-72 object-contain">
         </div>
     </div>
-
+</div>
 
 @endsection

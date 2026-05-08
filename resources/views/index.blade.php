@@ -1,130 +1,133 @@
 @extends('templates.main')
 
 @section('content')
-    <div class="px-4 py-5 text-center">
-        <div class="py-5">
-            <h1 class="display-5 fw-bold text-white">Erstelle deinen <span class="highlight-text">OneTimeText</span>.
+
+{{-- Hero: Erstell-Bereich (Typ A) --}}
+<div class="min-h-[70vh] flex flex-col items-center justify-center text-center py-12">
+
+    <div class="mb-8">
+        <div class="flex items-center justify-center gap-3 mb-4">
+            <x-icons.lock-closed class="size-10 text-primary" />
+            <h1 class="text-4xl md:text-5xl font-bold">
+                Erstelle deinen <span class="text-primary">OneTimeText</span>.
             </h1>
-            <div class="col-lg-7 mx-auto text-lightgray">
-                <p class="fs-5 mb-4">Ein OneTimeText ist eine Nachricht, die nur einmalig abgerufen werden kann. Nach
-                    der Erstellung erhältst du einen Link, den du weiterleiten kannst. Über diesen Link kann deine
-                    erstellte
-                    Nachricht 1x abgerufen werden, bevor sie aus dem System gelöscht wird.</p>
-            </div>
+        </div>
+        <p class="text-base-content/70 text-lg max-w-xl mx-auto">
+            Gib deine geheime Nachricht ein – du erhältst einen Link, der <strong>genau einmal</strong> gelesen werden kann.
+        </p>
+    </div>
 
-            @if(session('secreturl'))
-                <div class="row">
-                    <div class="col-12 col-sm-10 col-md-8 mx-auto">
-                        <div class="alert alert-success align-items-center" role="alert">
-                            <i style="font-size:19pt" class="bi bi-check-lg me-2"></i>
-                            <div>
-                                Dein Link wurde erstellt:<br>
-                                <span id="foo">{{ session('secreturl') }}</span>
-                            </div>
-                            <div class="text-center">
-                                <button id="copy-btn" class="btn btn-outline-success mt-3" data-clipboard-target="#foo">
-                                    <i class="bi bi-clipboard-check"></i> <span id="copy-text">Kopieren</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+    {{-- Link-Banner nach dem Erstellen --}}
+    @if(session('secreturl'))
+        <div class="w-full max-w-xl mb-8">
+            <div class="rounded-box bg-success/15 border border-success/40 p-4 flex flex-col gap-3 text-left">
+                <div class="flex items-center gap-2 text-success">
+                    <x-icons.check class="size-5 shrink-0" />
+                    <span class="font-semibold text-base">Dein Link wurde erstellt!</span>
                 </div>
-                <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
-                <script>
-                    var successMessage = document.getElementById('copied');
-                    var btn = document.getElementById('copy-btn');
-                    var clipboard = new ClipboardJS(btn);
-
-                    clipboard.on('success', function (e) {
-                        btn.classList.remove("btn-outline-primary");
-                        btn.classList.add("btn-outline-success");
-                        document.getElementById("copy-text").innerHTML = 'Kopiert!';
-                        e.clearSelection();
-                    });
-
-                    clipboard.on('error', function (e) {
-                        console.error('Action:', e.action);
-                        console.error('Trigger:', e.trigger);
-                    });
-                </script>
-            @endif
-
-            <div class="row mt-5">
-                <div class="col-sm-6 justify-content-center align-self-center">
-                    <form id="save-secret-form" class="mt-4" method="POST" action="{{ route('text.secret.store') }}">
-                        @csrf
-                        <div class="mb-3">
-                            <textarea name="value" type="text" class="form-control @error('value') is-invalid @enderror"
-                                      id="value" aria-describedby="value"
-                                      placeholder="Tippe deine Nachricht hier ein ..."
-                                      rows="5">{{ old('value') }}</textarea>
-                            @error('value')
-                            <span class="invalid-feedback" role="alert">
-                    {{ $message }}
-                </span>
-                            @enderror
-                            @error('key')
-                            <span class="invalid-feedback" role="alert">
-                    {{ $message }}
-                </span>
-                            @enderror
-                            @error('user_id')
-                            <span class="invalid-feedback" role="alert">
-                    {{ $message }}
-                </span>
-                            @enderror
-                        </div>
-                        <button type="submit" id="create-link" class="btn btn-primary highlight-background px-4 py-2">
-                            Link erstellen
-                        </button>
-                    </form>
-                </div>
-                <div class="justify-content-center align-self-center col-8 col-sm-6 mx-auto mx-sm-0 mt-5 mt-sm-0">
-                    <img class="index-image" src="{{asset('images/secret.png')}}" alt="image">
+                <p class="text-sm text-base-content/70">Kopiere den Link und sende ihn an den Empfänger. Der Link kann nur <strong>einmal</strong> geöffnet werden.</p>
+                <div class="join w-full">
+                    <input id="secret-url-field"
+                           type="text"
+                           class="input join-item flex-1 font-mono text-sm"
+                           value="{{ session('secreturl') }}"
+                           readonly />
+                    <button id="copy-btn" class="btn btn-primary join-item gap-2">
+                        <x-icons.clipboard class="size-4" />
+                        <span id="copy-text">Kopieren</span>
+                    </button>
                 </div>
             </div>
+        </div>
+
+        <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
+        <script>
+            var clipboard = new ClipboardJS('#copy-btn', {
+                text: function() {
+                    return document.getElementById('secret-url-field').value;
+                }
+            });
+            clipboard.on('success', function(e) {
+                document.getElementById('copy-text').textContent = '✓ Kopiert!';
+                e.clearSelection();
+            });
+        </script>
+    @endif
+
+    {{-- Formular --}}
+    <div class="card bg-base-200 shadow-xl w-full max-w-xl">
+        <div class="card-body gap-4">
+            <form id="save-secret-form" method="POST" action="{{ route('text.secret.store') }}">
+                @csrf
+                <div class="form-control gap-2">
+                    <label class="label mb-2" for="value">
+                        <span class="label-text font-medium">Deine geheime Nachricht</span>
+                    </label>
+                    <textarea
+                        name="value"
+                        id="value"
+                        class="textarea textarea-bordered w-full text-base min-h-36 @error('value') textarea-error @enderror"
+                        placeholder="Tippe deine Nachricht hier ein …"
+                        rows="6"
+                        autofocus
+                    >{{ old('value') }}</textarea>
+                    @error('value')
+                        <p class="text-error text-sm">{{ $message }}</p>
+                    @enderror
+                    @error('key')
+                        <p class="text-error text-sm">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary w-full gap-2 text-base">
+                        <x-icons.link class="size-5" />
+                        Link erstellen
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- Info-Bereich --}}
+<section class="py-16 border-t border-base-300 mt-8">
+    <div class="text-center mb-12">
+        <p class="text-sm uppercase tracking-widest text-base-content/50 mb-2">Über</p>
+        <h2 class="text-3xl font-bold">Informationen zu <span class="text-primary">OneTimeText</span>.</h2>
+        <p class="text-base-content/60 mt-2">In diesem Bereich finden Sie Informationen dazu, wozu dieses Tool dient.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+        <div>
+            <h3 class="text-2xl font-bold mb-4">Was ist OneTimeText?</h3>
+            <p class="text-base-content/70 leading-relaxed">
+                OneTimeText ist ein Werkzeug, das Ihnen dabei helfen soll, sensible Daten wie z.B. Passwörter zu
+                versenden, ohne dass diese in Chat- oder E-Mailverläufen auftauchen. Sie können den Text, den Sie
+                mit jemandem teilen möchten einfach in eine OneTimeText-Nachricht verpacken und den Link versenden.
+                Der von Ihnen verpackte Text, der ausschließlich durch diesen Link aufrufbar ist,
+                kann nur 1x gelesen werden, bevor die Nachricht aus dem System gelöscht wird.
+            </p>
+        </div>
+        <div class="flex justify-center">
+            <img src="{{ asset('images/whatis.png') }}" alt="Was ist OneTimeText" class="max-h-64 object-contain">
         </div>
     </div>
 
-    <section id="about">
-        <div class="container mt-5">
-            <header class="text-center mb-5">
-                <h5 class="text-uppercase">Über</h5>
-                <h1>Informationen zu <span class="highlight-text">OneTimeText</span>.</h1>
-                <p>In diesem Bereich finden Sie Informationen dazu, wozu dieses Tool dient.</p>
-            </header>
-            <div class="row mb-5">
-                <div class="col-sm-8 col-md-6 justify-content-center align-self-center">
-                    <h1>Was ist OneTimeText?</h1>
-                    <p>OneTimeText ist ein Werkzeug, das Ihnen dabei helfen soll, sensible Daten wie z.B. Passwörter zu
-                        versenden, ohne dass diese in Chat- oder E-Mailverläufen auftauchen. Sie können den Text, den Sie
-                        mit jemandem teilen möchten einfach in eine OneTimeText-Nachricht verpacken und den Link
-                        versenden. Der von Ihnen verpackte Text, der ausschließlich durch diesen Link aufrufbar ist,
-                        kann nur 1x gelesen werden, bevor die Nachricht aus System gelöscht wird. Sie brauchen sich also
-                        keine Gedanken darüber zu machen, dass weitere Personen auf die geheime Nachricht zugreifen
-                        können.</p>
-                </div>
-                <div
-                    class="text-center justify-content-center align-self-center col-8 col-sm-4 col-md-6 mx-auto mx-sm-0 mt-5 mt-sm-0">
-                    <img src="{{asset('images/whatis.png')}}" alt="image" class="img-fluid index-image"
-                         id="what-is-image">
-                </div>
-            </div>
-            <div class="row">
-                <div
-                    class="text-center justify-content-center align-self-center col-8 col-sm-4 col-md-6 mx-auto mx-sm-0 mt-5 mt-sm-0 d-none d-sm-block">
-                    <img src="{{asset('images/how.png')}}" alt="image" class="img-fluid index-image" id="how-image">
-                </div>
-                <div class="col-sm-8 col-md-6 justify-content-center align-self-center">
-                    <h1>Wie benutze ich OneTimeText?</h1>
-                    <p>Die Nutzung von OneTimeText könnte nicht einfacher sein. Sie benötigen keinen Benutzeraccount um
-                        dieses Tool nutzen zu können. Geben Sie einfach Ihren geheimen Text in das Feld auf der
-                        Startseite ein und klicken Sie auf "Link erstellen". Kopieren Sie den Link und versenden Sie
-                        diesen an den Empfänger per Mail, Signal, Whatsapp oder auch per Brief. Der Nachricht-Empfänger
-                        muss zum lesen der Nachricht lediglich auf den Link klicken und auf den Button "OneTimeText
-                        öffnen" klicken.</p>
-                </div>
-            </div>
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="hidden md:flex justify-center order-first">
+            <img src="{{ asset('images/how.png') }}" alt="Wie benutze ich OneTimeText" class="max-h-64 object-contain">
         </div>
-    </section>
+        <div>
+            <h3 class="text-2xl font-bold mb-4">Wie benutze ich OneTimeText?</h3>
+            <p class="text-base-content/70 leading-relaxed">
+                Die Nutzung von OneTimeText könnte nicht einfacher sein. Sie benötigen keinen Benutzeraccount um
+                dieses Tool nutzen zu können. Geben Sie einfach Ihren geheimen Text in das Feld oben ein und
+                klicken Sie auf „Link erstellen". Kopieren Sie den Link und versenden Sie diesen an den Empfänger
+                per Mail, Signal, Whatsapp oder auch per Brief. Der Nachricht-Empfänger muss zum Lesen der Nachricht
+                lediglich auf den Link klicken und auf den Button „OneTimeText öffnen" klicken.
+            </p>
+        </div>
+    </div>
+</section>
+
 @endsection
