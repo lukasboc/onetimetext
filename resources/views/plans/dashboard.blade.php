@@ -62,6 +62,16 @@
                         @error('value')
                             <p class="text-error text-xs mt-1">{{ $message }}</p>
                         @enderror
+                        @if(auth()->user()->subscribed())
+                            <div class="form-control mt-3">
+                                <label class="label cursor-pointer justify-start gap-3">
+                                    <input type="checkbox" name="notify_on_read" value="1"
+                                           class="checkbox checkbox-primary checkbox-sm"
+                                           {{ old('notify_on_read') ? 'checked' : '' }} />
+                                    <span class="label-text">Per E-Mail benachrichtigen, wenn der Link geöffnet wird</span>
+                                </label>
+                            </div>
+                        @endif
                         <script>
                             (function () {
                                 var ta = document.getElementById('value');

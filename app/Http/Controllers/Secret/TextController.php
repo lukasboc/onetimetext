@@ -62,10 +62,13 @@ class TextController extends Controller
             'key' => 'required|unique:texts|min:5|max:255'
         ]);
 
+        $isProUser = $request->user()?->subscribed();
+
         $text = new Text;
         $text->key = $request->key;
         $text->value = $request->value;
         $text->user_id = $request->user_id;
+        $text->notify_on_read = $isProUser && $request->boolean('notify_on_read');
         $text->save();
 
 
@@ -86,7 +89,15 @@ class TextController extends Controller
     public function destroy($key)
     {
         $secret = Text::where('key', '=', $key)->firstOrFail();
-        $deletedRow = Text::where('key', $key)->delete();
+        Text::where('key', $key)->delete();
+
+        if ($secret->notify_on_read && $secret->user_id !== 1) {
+            $owner = User::find($secret->user_id);
+            if ($owner) {
+                \Illuminate\Support\Facades\Mail::to($owner->email)
+                    ->send(new \App\Mail\SecretRead($secret));
+            }
+        }
 
         return view('secret.delete', [
             'secret' => $secret
