@@ -14,19 +14,24 @@
 
     {{-- Link-Banner nach dem Erstellen --}}
     @if(session('secreturl'))
-        <div role="alert" class="alert alert-success mb-6 flex-col items-start gap-3 text-left">
-            <div class="flex items-center gap-2">
-                <x-icons.check class="size-5 shrink-0" />
-                <span class="font-semibold">Dein Link wurde erstellt!</span>
-            </div>
-            <div class="join w-full max-w-lg">
-                <input id="secret-url-field" type="text"
-                       class="input join-item flex-1 font-mono text-sm"
-                       value="{{ session('secreturl') }}" readonly />
-                <button id="copy-btn" class="btn btn-primary join-item gap-2">
-                    <x-icons.clipboard class="size-4" />
-                    <span id="copy-text">Kopieren</span>
-                </button>
+        <div class="w-full mb-8">
+            <div class="rounded-box bg-success/15 border border-success/40 p-4 flex flex-col gap-3 text-left">
+                <div class="flex items-center gap-2 text-success">
+                    <x-icons.check class="size-5 shrink-0" />
+                    <span class="font-semibold text-base">Dein Link wurde erstellt!</span>
+                </div>
+                <p class="text-sm text-base-content/70">Kopiere den Link und sende ihn an den Empfänger. Der Link kann nur <strong>einmal</strong> geöffnet werden.</p>
+                <div class="join w-full">
+                    <input id="secret-url-field"
+                        type="text"
+                        class="input join-item flex-1 font-mono text-sm"
+                        value="{{ session('secreturl') }}"
+                        readonly />
+                    <button id="copy-btn" class="btn btn-primary join-item gap-2">
+                        <x-icons.clipboard class="size-4" />
+                        <span id="copy-text">Kopieren</span>
+                    </button>
+                </div>
             </div>
         </div>
         <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
@@ -72,6 +77,118 @@
                                 </label>
                             </div>
                         @endif
+                        {{-- Ablauf-Auswahl (alle Nutzer) --}}
+                        @php
+                            $isPro   = auth()->user()?->subscribed();
+                            $oldExp  = old('expires_in') ?? '336';
+                            $expMap  = [
+                                ''       => 'nie',
+                                '72'     => '3 Tagen',
+                                '168'    => '7 Tagen',
+                                '336'    => '14 Tagen',
+                                '720'    => '30 Tagen',
+                                'custom' => 'individuell',
+                            ];
+                            $expInitLabel = $expMap[$oldExp] ?? '14 Tagen';
+                        @endphp
+                        <div class="form-control mt-3">
+                            <div class="inline-flex items-center gap-1 flex-wrap">
+                                <span class="text-sm text-base-content/70">Automatisch löschen in</span>
+                                <div class="dropdown dropdown-bottom">
+                                    <button type="button" tabindex="0"
+                                            class="inline-flex items-center gap-1 text-primary font-semibold text-sm underline underline-offset-2 decoration-dotted hover:opacity-70 transition-opacity cursor-pointer">
+                                        <span id="expires-btn-dash">{{ $expInitLabel }}</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-3.5 opacity-70 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </button>
+                                    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-20 w-64 p-1 shadow-xl border border-base-300 mt-1">
+                                        @if($isPro)
+                                            <li>
+                                                <button type="button" class="expires-opt-dash text-sm {{ $oldExp === '' ? 'active' : '' }}"
+                                                        data-value="" data-label="nie">
+                                                    Kein automatisches Löschen
+                                                </button>
+                                            </li>
+                                        @else
+                                            <li>
+                                                <button type="button" tabindex="-1" aria-disabled="true"
+                                                        class="text-sm opacity-40 pointer-events-none select-none"
+                                                        title="Nur für Pro-Nutzer verfügbar">
+                                                    <x-icons.lock-closed class="size-3.5 shrink-0" />
+                                                    <span class="flex-1">Kein automatisches Löschen</span>
+                                                    <span class="badge badge-xs shrink-0">Pro</span>
+                                                </button>
+                                            </li>
+                                        @endif
+                                        <li><hr class="my-1 border-base-300"></li>
+                                        <li>
+                                            <button type="button" class="expires-opt-dash text-sm {{ $oldExp === '72' ? 'active' : '' }}"
+                                                    data-value="72" data-label="3 Tagen">3 Tage</button>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="expires-opt-dash text-sm {{ $oldExp === '168' ? 'active' : '' }}"
+                                                    data-value="168" data-label="7 Tagen">7 Tage</button>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="expires-opt-dash text-sm {{ $oldExp === '336' ? 'active' : '' }}"
+                                                    data-value="336" data-label="14 Tagen">
+                                                14 Tage <span class="opacity-50 text-xs ml-1">(Standard)</span>
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="button" class="expires-opt-dash text-sm {{ $oldExp === '720' ? 'active' : '' }}"
+                                                    data-value="720" data-label="30 Tagen">30 Tage</button>
+                                        </li>
+                                        <li><hr class="my-1 border-base-300"></li>
+                                        @if($isPro)
+                                            <li>
+                                                <button type="button" class="expires-opt-dash text-sm {{ $oldExp === 'custom' ? 'active' : '' }}"
+                                                        data-value="custom" data-label="individuell">
+                                                    Individueller Zeitpunkt …
+                                                </button>
+                                            </li>
+                                        @else
+                                            <li>
+                                                <button type="button" tabindex="-1" aria-disabled="true"
+                                                        class="text-sm opacity-40 pointer-events-none select-none"
+                                                        title="Nur für Pro-Nutzer verfügbar">
+                                                    <x-icons.lock-closed class="size-3.5 shrink-0" />
+                                                    <span class="flex-1">Individueller Zeitpunkt …</span>
+                                                    <span class="badge badge-xs shrink-0">Pro</span>
+                                                </button>
+                                            </li>
+                                        @endif
+                                    </ul>
+                                </div>
+                            </div>
+                            <input type="hidden" name="expires_in" id="expires-val-dash" value="{{ $oldExp }}">
+                            <div id="custom-expires-dash" class="{{ $oldExp === 'custom' && $isPro ? '' : 'hidden' }} mt-2">
+                                <input type="number" name="expires_in_days"
+                                       class="input input-bordered input-sm w-full @error('expires_in_days') input-error @enderror"
+                                       min="1" max="365"
+                                       value="{{ old('expires_in_days') }}"
+                                       placeholder="Anzahl Tage (1–365)" />
+                                @error('expires_in_days')
+                                    <p class="text-error text-xs mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+                        <script>
+                        (function () {
+                            var btn    = document.getElementById('expires-btn-dash');
+                            var inp    = document.getElementById('expires-val-dash');
+                            var custom = document.getElementById('custom-expires-dash');
+                            document.querySelectorAll('.expires-opt-dash').forEach(function (el) {
+                                el.addEventListener('click', function () {
+                                    btn.textContent = this.dataset.label;
+                                    inp.value = this.dataset.value;
+                                    custom.classList.toggle('hidden', this.dataset.value !== 'custom');
+                                    document.activeElement.blur();
+                                });
+                            });
+                        })();
+                        </script>
                         <script>
                             (function () {
                                 var ta = document.getElementById('value');
@@ -143,6 +260,7 @@
                             <th>Link</th>
                             <th>Vorschau</th>
                             <th>Erstellt am</th>
+                            <th>Läuft ab</th>
                             <th>Aktionen</th>
                         </tr>
                     </thead>
@@ -156,11 +274,14 @@
                                 <td class="text-sm">
                                     {{ date_format(date_timezone_set(date_create_from_format("Y-m-d H:i:s", $text->created_at, new DateTimeZone('UTC')), new DateTimeZone('Europe/Berlin')), "d.m.Y H:i") }}
                                 </td>
+                                <td class="text-sm">
+                                    {{ $text->expires_at ? date_format(date_timezone_set(date_create_from_format("Y-m-d H:i:s", $text->expires_at, new DateTimeZone('UTC')), new DateTimeZone('Europe/Berlin')), "d.m.Y H:i") : '–' }}
+                                </td>
                                 <td>
                                     <form method="POST" action="{{ route('deleteText') }}">
                                         @csrf
                                         <input name="key" type="hidden" value="{{ $text->key }}" />
-                                        <button type="submit" class="btn btn-error btn-sm gap-1">
+                                        <button type="submit" class="btn btn-soft btn-error btn-sm gap-1">
                                             <x-icons.trash class="size-4" />
                                             Löschen
                                         </button>

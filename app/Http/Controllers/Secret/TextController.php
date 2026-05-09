@@ -36,11 +36,14 @@ class TextController extends Controller
      */
     public function show($id)
     {
-        {
-            return view('secret.show', [
-                'secret' => Text::where('key', '=', $id)->firstOrFail()
-            ]);
+        $secret = Text::where('key', '=', $id)->firstOrFail();
+
+        if ($secret->expires_at && $secret->expires_at->isPast()) {
+            $secret->delete();
+            abort(404);
         }
+
+        return view('secret.show', ['secret' => $secret]);
     }
 
     public function store(StoreSecretTextRequest $request)
@@ -69,6 +72,19 @@ class TextController extends Controller
         $text->value = $request->value;
         $text->user_id = $request->user_id;
         $text->notify_on_read = $isProUser && $request->boolean('notify_on_read');
+
+        $expiresIn = $request->expires_in;
+        if (!$isProUser && !in_array($expiresIn, ['72', '168', '336', '720'])) {
+            $expiresIn = '336';
+        }
+        if ($expiresIn === 'custom') {
+            $text->expires_at = now()->addHours((int) $request->expires_in_days * 24);
+        } elseif (!empty($expiresIn)) {
+            $text->expires_at = now()->addHours((int) $expiresIn);
+        } else {
+            $text->expires_at = null;
+        }
+
         $text->save();
 
 

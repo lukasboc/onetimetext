@@ -14,7 +14,10 @@ class Text extends Model
 
     protected $table = "texts";
 
-    protected $casts = ['notify_on_read' => 'boolean'];
+    protected $casts = [
+        'notify_on_read' => 'boolean',
+        'expires_at'     => 'datetime',
+    ];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
