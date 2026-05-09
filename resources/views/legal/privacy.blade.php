@@ -3,9 +3,9 @@
 @section('content')
     <div class="px-4 py-5">
         <div class="py-5">
-            <h1 class="display-5 fw-bold text-white">Datenschutz.</h1>
+            <h1 class="display-5 fw-bold text-white mb-6">Datenschutz.</h1>
             <div class="text-lightgray">
-                <p>Diese Datenschutzerklärung klärt Sie über die Art, den Umfang und Zweck der Verarbeitung von
+                <p class="mb-4">Diese Datenschutzerklärung klärt Sie über die Art, den Umfang und Zweck der Verarbeitung von
                     personenbezogenen Daten (nachfolgend kurz „Daten“) innerhalb unseres Onlineangebotes und der mit ihm
                     verbundenen Webseiten, Funktionen und Inhalte sowie externen Onlinepräsenzen, wie z.B. unser Social
                     Media Profile auf (nachfolgend gemeinsam bezeichnet als „Onlineangebot“). Im Hinblick auf die
@@ -13,41 +13,35 @@
                     Definitionen im Art. 4 der Datenschutzgrundverordnung (DSGVO).<br>
                     <br>
                 </p>
-                <h3 id="dsg-general-controller">Verantwortlicher</h3>
-                <p><span class="tsmcontroller">Lukas Bock<br>
-                In den Breden 20<br>
-                27386 Bothel<br>
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-general-controller">Verantwortlicher</h3>
+                <p class="mb-4"><span class="tsmcontroller">Lukas Bock<br>
+                Gutenfelsstr. 2<br>
+                28217 Bremen<br>
                 Germany<br>
                 <br>
                 E-Mail: <a href="mailto:onetimetext@lubomedia.de?subject=Kontaktanfrage">onetimetext@lubomedia.com</a><br>
-                Telefon: 0441 59473836<br>
-                Geschätsinhaber: Lukas Bock<br>
-                <br>
-                Lukas Bock hat keinen Datenschutzbeauftragten bestellt, bitte wenden Sie sich an die Geschäftsführung.</span></p>
-                <h3 id="dsg-general-purpose">Arten der verarbeiteten Daten:</h3>
-                <ul class="datenschutz-artendaten">
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-general-purpose">Arten der verarbeiteten Daten:</h3>
+                <ul class="mb-4 list-disc pl-5">
                     <li>Bestandsdaten (z.B., Namen, Adressen).</li>
                     <li>Kontaktdaten (z.B., E-Mail, Telefonnummern).</li>
                     <li>Inhaltsdaten (z.B., Texteingaben, Fotografien, Videos).</li>
                     <li>Nutzungsdaten (z.B., besuchte Webseiten, Interesse an Inhalten, Zugriffszeiten).</li>
                     <li>Meta-/Kommunikationsdaten (z.B., Geräte-Informationen, IP-Adressen).</li>
                 </ul>
-                <h3 id="dsg-general-datasubjects">Kategorien betroffener Personen</h3>
-                <p>Besucher und Nutzer des Onlineangebotes (Nachfolgend bezeichnen wir die betroffenen Personen
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-general-datasubjects">Kategorien betroffener Personen</h3>
+                <p class="mb-4">Besucher und Nutzer des Onlineangebotes (Nachfolgend bezeichnen wir die betroffenen Personen
                     zusammenfassend auch als „Nutzer“).<br>
                 </p>
-                <h3 id="dsg-general-purpose">Zweck der Verarbeitung</h3>
-                <p>
-                </p>
-                <ul class="datenschutz-artendaten">
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-general-purpose">Zweck der Verarbeitung</h3>
+                <ul class="mb-4 list-disc pl-5">
                     <li>Zurverfügungstellung des Onlineangebotes, seiner Funktionen und Inhalte.</li>
                     <li>Beantwortung von Kontaktanfragen und Kommunikation mit Nutzern.</li>
                     <li>Sicherheitsmaßnahmen.</li>
                     <li>Reichweitenmessung/Marketing</li>
                 </ul>
-                <p></p>
-                <h3 id="dsg-general-terms">Verwendete Begrifflichkeiten </h3>
-                <p>„Personenbezogene Daten“ sind alle Informationen, die sich auf eine identifizierte oder
+
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-general-terms">Verwendete Begrifflichkeiten </h3>
+                <p class=”mb-4”>„Personenbezogene Daten” sind alle Informationen, die sich auf eine identifizierte oder
                     identifizierbare natürliche Person (im Folgenden „betroffene Person“) beziehen; als identifizierbar
                     wird eine natürliche Person angesehen, die direkt oder indirekt, insbesondere mittels Zuordnung zu
                     einer Kennung wie einem Namen, zu einer Kennnummer, zu Standortdaten, zu einer Online-Kennung (z.B.
@@ -75,8 +69,8 @@
                     <br> „Auftragsverarbeiter“ eine natürliche oder juristische Person, Behörde, Einrichtung oder andere
                     Stelle, die personenbezogene Daten im Auftrag des Verantwortlichen verarbeitet.<br>
                 </p>
-                <h3 id="dsg-general-legalbasis">Maßgebliche Rechtsgrundlagen</h3>
-                <p>Nach Maßgabe des Art. 13 DSGVO teilen wir Ihnen die Rechtsgrundlagen unserer Datenverarbeitungen mit.
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-general-legalbasis">Maßgebliche Rechtsgrundlagen</h3>
+                <p class="mb-4">Nach Maßgabe des Art. 13 DSGVO teilen wir Ihnen die Rechtsgrundlagen unserer Datenverarbeitungen mit.
                     Sofern die Rechtsgrundlage in der Datenschutzerklärung nicht genannt wird, gilt Folgendes: Die
                     Rechtsgrundlage für die Einholung von Einwilligungen ist Art. 6 Abs. 1 lit. a und Art. 7 DSGVO, die
                     Rechtsgrundlage für die Verarbeitung zur Erfüllung unserer Leistungen und Durchführung vertraglicher
@@ -86,8 +80,8 @@
                     Abs. 1 lit. f DSGVO. Für den Fall, dass lebenswichtige Interessen der betroffenen Person oder einer
                     anderen natürlichen Person eine Verarbeitung personenbezogener Daten erforderlich machen, dient Art.
                     6 Abs. 1 lit. d DSGVO als Rechtsgrundlage.</p>
-                <h3 id="dsg-general-securitymeasures">Sicherheitsmaßnahmen</h3>
-                <p>Wir treffen nach Maßgabe des Art. 32 DSGVO unter Berücksichtigung des Stands der Technik, der
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-general-securitymeasures">Sicherheitsmaßnahmen</h3>
+                <p class="mb-4">Wir treffen nach Maßgabe des Art. 32 DSGVO unter Berücksichtigung des Stands der Technik, der
                     Implementierungskosten und der Art, des Umfangs, der Umstände und der Zwecke der Verarbeitung sowie
                     der unterschiedlichen Eintrittswahrscheinlichkeit und Schwere des Risikos für die Rechte und
                     Freiheiten natürlicher Personen, geeignete technische und organisatorische Maßnahmen, um ein dem
@@ -101,8 +95,8 @@
                     Verfahren, entsprechend dem Prinzip des Datenschutzes durch Technikgestaltung und durch
                     datenschutzfreundliche Voreinstellungen (Art. 25 DSGVO).<br>
                 </p>
-                <h3 id="dsg-general-coprocessing">Zusammenarbeit mit Auftragsverarbeitern und Dritten</h3>
-                <p>Sofern wir im Rahmen unserer Verarbeitung Daten gegenüber anderen Personen und Unternehmen
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-general-coprocessing">Zusammenarbeit mit Auftragsverarbeitern und Dritten</h3>
+                <p class="mb-4">Sofern wir im Rahmen unserer Verarbeitung Daten gegenüber anderen Personen und Unternehmen
                     (Auftragsverarbeitern oder Dritten) offenbaren, sie an diese übermitteln oder ihnen sonst Zugriff
                     auf die Daten gewähren, erfolgt dies nur auf Grundlage einer gesetzlichen Erlaubnis (z.B. wenn eine
                     Übermittlung der Daten an Dritte, wie an Zahlungsdienstleister, gem. Art. 6 Abs. 1 lit. b DSGVO zur
@@ -111,8 +105,8 @@
                     Webhostern, etc.). <br>
                     <br> Sofern wir Dritte mit der Verarbeitung von Daten auf Grundlage eines sog.
                     „Auftragsverarbeitungsvertrages“ beauftragen, geschieht dies auf Grundlage des Art. 28 DSGVO.</p>
-                <h3 id="dsg-general-thirdparty">Übermittlungen in Drittländer</h3>
-                <p>Sofern wir Daten in einem Drittland (d.h. außerhalb der Europäischen Union (EU) oder des Europäischen
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-general-thirdparty">Übermittlungen in Drittländer</h3>
+                <p class="mb-4">Sofern wir Daten in einem Drittland (d.h. außerhalb der Europäischen Union (EU) oder des Europäischen
                     Wirtschaftsraums (EWR)) verarbeiten oder dies im Rahmen der Inanspruchnahme von Diensten Dritter
                     oder Offenlegung, bzw. Übermittlung von Daten an Dritte geschieht, erfolgt dies nur, wenn es zur
                     Erfüllung unserer (vor)vertraglichen Pflichten, auf Grundlage Ihrer Einwilligung, aufgrund einer
@@ -123,8 +117,8 @@
                     Feststellung eines der EU entsprechenden Datenschutzniveaus (z.B. für die USA durch das „Privacy
                     Shield“) oder Beachtung offiziell anerkannter spezieller vertraglicher Verpflichtungen (so genannte
                     „Standardvertragsklauseln“).</p>
-                <h3 id="dsg-general-rightssubject">Rechte der betroffenen Personen</h3>
-                <p>Sie haben das Recht, eine Bestätigung darüber zu verlangen, ob betreffende Daten verarbeitet werden
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-general-rightssubject">Rechte der betroffenen Personen</h3>
+                <p class="mb-4">Sie haben das Recht, eine Bestätigung darüber zu verlangen, ob betreffende Daten verarbeitet werden
                     und auf Auskunft über diese Daten sowie auf weitere Informationen und Kopie der Daten entsprechend
                     Art. 15 DSGVO.<br>
                     <br> Sie haben entsprechend. Art. 16 DSGVO das Recht, die Vervollständigung der Sie betreffenden
@@ -137,15 +131,15 @@
                     fordern. <br>
                     <br> Sie haben ferner gem. Art. 77 DSGVO das Recht, eine Beschwerde bei der zuständigen
                     Aufsichtsbehörde einzureichen.</p>
-                <h3 id="dsg-general-revokeconsent">Widerrufsrecht</h3>
-                <p>Sie haben das Recht, erteilte Einwilligungen gem. Art. 7 Abs. 3 DSGVO mit Wirkung für die Zukunft zu
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-general-revokeconsent">Widerrufsrecht</h3>
+                <p class="mb-4">Sie haben das Recht, erteilte Einwilligungen gem. Art. 7 Abs. 3 DSGVO mit Wirkung für die Zukunft zu
                     widerrufen</p>
-                <h3 id="dsg-general-object">Widerspruchsrecht</h3>
-                <p>Sie können der künftigen Verarbeitung der Sie betreffenden Daten nach Maßgabe des Art. 21 DSGVO
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-general-object">Widerspruchsrecht</h3>
+                <p class="mb-4">Sie können der künftigen Verarbeitung der Sie betreffenden Daten nach Maßgabe des Art. 21 DSGVO
                     jederzeit widersprechen. Der Widerspruch kann insbesondere gegen die Verarbeitung für Zwecke der
                     Direktwerbung erfolgen.</p>
-                <h3 id="dsg-general-cookies">Cookies und Widerspruchsrecht bei Direktwerbung</h3>
-                <p>Als „Cookies“ werden kleine Dateien bezeichnet, die auf Rechnern der Nutzer gespeichert werden.
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-general-cookies">Cookies und Widerspruchsrecht bei Direktwerbung</h3>
+                <p class=”mb-4”>Als „Cookies” werden kleine Dateien bezeichnet, die auf Rechnern der Nutzer gespeichert werden.
                     Innerhalb der Cookies können unterschiedliche Angaben gespeichert werden. Ein Cookie dient primär
                     dazu, die Angaben zu einem Nutzer (bzw. dem Gerät auf dem das Cookie gespeichert ist) während oder
                     auch nach seinem Besuch innerhalb eines Onlineangebotes zu speichern. Als temporäre Cookies, bzw.
@@ -173,8 +167,8 @@
                     Des Weiteren kann die Speicherung von Cookies mittels deren Abschaltung in den Einstellungen des
                     Browsers erreicht werden. Bitte beachten Sie, dass dann gegebenenfalls nicht alle Funktionen dieses
                     Onlineangebotes genutzt werden können.</p>
-                <h3 id="dsg-general-erasure">Löschung von Daten</h3>
-                <p>Die von uns verarbeiteten Daten werden nach Maßgabe der Art. 17 und 18 DSGVO gelöscht oder in ihrer
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-general-erasure">Löschung von Daten</h3>
+                <p class="mb-4">Die von uns verarbeiteten Daten werden nach Maßgabe der Art. 17 und 18 DSGVO gelöscht oder in ihrer
                     Verarbeitung eingeschränkt. Sofern nicht im Rahmen dieser Datenschutzerklärung ausdrücklich
                     angegeben, werden die bei uns gespeicherten Daten gelöscht, sobald sie für ihre Zweckbestimmung
                     nicht mehr erforderlich sind und der Löschung keine gesetzlichen Aufbewahrungspflichten
@@ -192,40 +186,35 @@
                     10 Jahre bei Unterlagen im Zusammenhang mit elektronisch erbrachten Leistungen, Telekommunikations-,
                     Rundfunk- und Fernsehleistungen, die an Nichtunternehmer in EU-Mitgliedstaaten erbracht werden und
                     für die der Mini-One-Stop-Shop (MOSS) in Anspruch genommen wird.</p>
-                <p></p>
-                <h3 id="dsg-services-agency">Agenturdienstleistungen</h3>
-                <p></p>
-                <p><span class="ts-muster-content">Wir verarbeiten die Daten unserer Kunden im Rahmen unserer vertraglichen Leistungen zu denen konzeptionelle und strategische Beratung, Kampagnenplanung, Software- und Designentwicklung/-beratung oder Pflege, Umsetzung von Kampagnen und Prozessen/ Handling, Serveradministration, Datenanalyse/ Beratungsleistungen und Schulungsleistungen gehören.<br>
+
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-services-agency">Agenturdienstleistungen</h3>
+                <p class="mb-4"><span class="ts-muster-content">Wir verarbeiten die Daten unserer Kunden im Rahmen unserer vertraglichen Leistungen zu denen konzeptionelle und strategische Beratung, Kampagnenplanung, Software- und Designentwicklung/-beratung oder Pflege, Umsetzung von Kampagnen und Prozessen/ Handling, Serveradministration, Datenanalyse/ Beratungsleistungen und Schulungsleistungen gehören.<br>
                 <br>
                 Hierbei verarbeiten wir Bestandsdaten (z.B., Kundenstammdaten, wie Namen oder Adressen), Kontaktdaten (z.B., E-Mail, Telefonnummern), Inhaltsdaten (z.B., Texteingaben, Fotografien, Videos), Vertragsdaten (z.B., Vertragsgegenstand, Laufzeit), Zahlungsdaten (z.B., Bankverbindung, Zahlungshistorie), Nutzungs- und Metadaten (z.B. im Rahmen der Auswertung und Erfolgsmessung von Marketingmaßnahmen). Besondere Kategorien personenbezogener Daten verarbeiten wir grundsätzlich nicht, außer wenn diese Bestandteile einer beauftragten Verarbeitung sind. Zu den Betroffenen gehören unsere Kunden, Interessenten sowie deren Kunden, Nutzer, Websitebesucher oder Mitarbeiter sowie Dritte. Der Zweck der Verarbeitung besteht in der Erbringung von Vertragsleistungen, Abrechnung und unserem Kundenservice. Die Rechtsgrundlagen der Verarbeitung ergeben sich aus Art. 6 Abs. 1 lit. b DSGVO (vertragliche Leistungen), Art. 6 Abs. 1 lit. f DSGVO (Analyse, Statistik, Optimierung, Sicherheitsmaßnahmen). Wir verarbeiten Daten, die zur Begründung und Erfüllung der vertraglichen Leistungen erforderlich sind und weisen auf die Erforderlichkeit ihrer Angabe hin. Eine Offenlegung an Externe erfolgt nur, wenn sie im Rahmen eines Auftrags erforderlich ist. Bei der Verarbeitung der uns im Rahmen eines Auftrags überlassenen Daten handeln wir entsprechend den Weisungen der Auftraggeber sowie der gesetzlichen Vorgaben einer Auftragsverarbeitung gem. Art. 28 DSGVO und verarbeiten die Daten zu keinen anderen, als den auftragsgemäßen Zwecken.<br>
                 <br>
                 Wir löschen die Daten nach Ablauf gesetzlicher Gewährleistungs- und vergleichbarer Pflichten. die Erforderlichkeit der Aufbewahrung der Daten wird alle drei Jahre überprüft; im Fall der gesetzlichen Archivierungspflichten erfolgt die Löschung nach deren Ablauf (6 J, gem. § 257 Abs. 1 HGB, 10 J, gem. § 147 Abs. 1 AO). Im Fall von Daten, die uns gegenüber im Rahmen eines Auftrags durch den Auftraggeber offengelegt wurden, löschen wir die Daten entsprechend den Vorgaben des Auftrags, grundsätzlich nach Ende des Auftrags.</span>
                 </p>
-                <p></p>
-                <h3 id="dsg-contact">Kontaktaufnahme</h3>
-                <p></p>
-                <p><span class="ts-muster-content">Bei der Kontaktaufnahme mit uns (z.B. per Kontaktformular, E-Mail, Telefon oder via sozialer Medien) werden die Angaben des Nutzers zur Bearbeitung der Kontaktanfrage und deren Abwicklung gem. Art. 6 Abs. 1 lit. b. (im Rahmen vertraglicher-/vorvertraglicher Beziehungen),  Art. 6 Abs. 1 lit. f. (andere Anfragen) DSGVO verarbeitet.. Die Angaben der Nutzer können in einem Customer-Relationship-Management System ("CRM System") oder vergleichbarer Anfragenorganisation gespeichert werden.<br>
+
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-contact">Kontaktaufnahme</h3>
+                <p class="mb-4"><span class="ts-muster-content">Bei der Kontaktaufnahme mit uns (z.B. per Kontaktformular, E-Mail, Telefon oder via sozialer Medien) werden die Angaben des Nutzers zur Bearbeitung der Kontaktanfrage und deren Abwicklung gem. Art. 6 Abs. 1 lit. b. (im Rahmen vertraglicher-/vorvertraglicher Beziehungen),  Art. 6 Abs. 1 lit. f. (andere Anfragen) DSGVO verarbeitet.. Die Angaben der Nutzer können in einem Customer-Relationship-Management System ("CRM System") oder vergleichbarer Anfragenorganisation gespeichert werden.<br>
                 <br>
                 Wir löschen die Anfragen, sofern diese nicht mehr erforderlich sind. Wir überprüfen die Erforderlichkeit alle zwei Jahre; Ferner gelten die gesetzlichen Archivierungspflichten.</span>
                 </p>
-                <p></p>
-                <h3 id="dsg-hostingprovider">Hosting und E-Mail-Versand</h3>
-                <p></p>
-                <p><span class="ts-muster-content">Die von uns in Anspruch genommenen Hosting-Leistungen dienen der Zurverfügungstellung der folgenden Leistungen: Infrastruktur- und Plattformdienstleistungen, Rechenkapazität, Speicherplatz und Datenbankdienste, E-Mail-Versand, Sicherheitsleistungen sowie technische Wartungsleistungen, die wir zum Zwecke des Betriebs dieses Onlineangebotes einsetzen. <br>
+
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-hostingprovider">Hosting und E-Mail-Versand</h3>
+                <p class="mb-4"><span class="ts-muster-content">Die von uns in Anspruch genommenen Hosting-Leistungen dienen der Zurverfügungstellung der folgenden Leistungen: Infrastruktur- und Plattformdienstleistungen, Rechenkapazität, Speicherplatz und Datenbankdienste, E-Mail-Versand, Sicherheitsleistungen sowie technische Wartungsleistungen, die wir zum Zwecke des Betriebs dieses Onlineangebotes einsetzen. <br>
                 <br>
                 Hierbei verarbeiten wir, bzw. unser Hostinganbieter Bestandsdaten, Kontaktdaten, Inhaltsdaten, Vertragsdaten, Nutzungsdaten, Meta- und Kommunikationsdaten von Kunden, Interessenten und Besuchern dieses Onlineangebotes auf Grundlage unserer berechtigten Interessen an einer effizienten und sicheren Zurverfügungstellung dieses Onlineangebotes gem. Art. 6 Abs. 1 lit. f DSGVO i.V.m. Art. 28 DSGVO (Abschluss Auftragsverarbeitungsvertrag).</span>
                 </p>
-                <p></p>
-                <h3 id="dsg-logfiles">Erhebung von Zugriffsdaten und Logfiles</h3>
-                <p></p>
-                <p><span class="ts-muster-content">Wir, bzw. unser Hostinganbieter, erhebt auf Grundlage unserer berechtigten Interessen im Sinne des Art. 6 Abs. 1 lit. f. DSGVO Daten über jeden Zugriff auf den Server, auf dem sich dieser Dienst befindet (sogenannte Serverlogfiles). Zu den Zugriffsdaten gehören Name der abgerufenen Webseite, Datei, Datum und Uhrzeit des Abrufs, übertragene Datenmenge, Meldung über erfolgreichen Abruf, Browsertyp nebst Version, das Betriebssystem des Nutzers, Referrer URL (die zuvor besuchte Seite), IP-Adresse und der anfragende Provider.<br>
+
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-logfiles">Erhebung von Zugriffsdaten und Logfiles</h3>
+                <p class="mb-4"><span class="ts-muster-content">Wir, bzw. unser Hostinganbieter, erhebt auf Grundlage unserer berechtigten Interessen im Sinne des Art. 6 Abs. 1 lit. f. DSGVO Daten über jeden Zugriff auf den Server, auf dem sich dieser Dienst befindet (sogenannte Serverlogfiles). Zu den Zugriffsdaten gehören Name der abgerufenen Webseite, Datei, Datum und Uhrzeit des Abrufs, übertragene Datenmenge, Meldung über erfolgreichen Abruf, Browsertyp nebst Version, das Betriebssystem des Nutzers, Referrer URL (die zuvor besuchte Seite), IP-Adresse und der anfragende Provider.<br>
                 <br>
                 Logfile-Informationen werden aus Sicherheitsgründen (z.B. zur Aufklärung von Missbrauchs- oder Betrugshandlungen) für die Dauer von maximal 7 Tagen gespeichert und danach gelöscht. Daten, deren weitere Aufbewahrung zu Beweiszwecken erforderlich ist, sind bis zur endgültigen Klärung des jeweiligen Vorfalls von der Löschung ausgenommen.</span>
                 </p>
-                <p></p>
-                <h3 id="dsg-ga-googleanalytics">Google Analytics</h3>
-                <p></p>
-                <p><span class="ts-muster-content">Wir setzen auf Grundlage unserer berechtigten Interessen (d.h. Interesse an der Analyse, Optimierung und wirtschaftlichem Betrieb unseres Onlineangebotes im Sinne des Art. 6 Abs. 1 lit. f. DSGVO) Google Analytics, einen Webanalysedienst der Google LLC („Google“) ein. Google verwendet Cookies. Die durch das Cookie erzeugten Informationen über Benutzung des Onlineangebotes durch die Nutzer werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert.<br>
+
+                <h3 class="text-lg font-semibold mt-6 mb-1" id="dsg-ga-googleanalytics">Google Analytics</h3>
+                <p class="mb-4"><span class="ts-muster-content">Wir setzen auf Grundlage unserer berechtigten Interessen (d.h. Interesse an der Analyse, Optimierung und wirtschaftlichem Betrieb unseres Onlineangebotes im Sinne des Art. 6 Abs. 1 lit. f. DSGVO) Google Analytics, einen Webanalysedienst der Google LLC („Google“) ein. Google verwendet Cookies. Die durch das Cookie erzeugten Informationen über Benutzung des Onlineangebotes durch die Nutzer werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert.<br>
                 <br>
                 Google ist unter dem Privacy-Shield-Abkommen zertifiziert und bietet hierdurch eine Garantie, das europäische Datenschutzrecht einzuhalten (<a
                             target="_blank"
@@ -245,7 +234,7 @@
                 Die personenbezogenen Daten der Nutzer werden nach 14 Monaten gelöscht oder anonymisiert.</span></p><a
                     href="https://datenschutz-generator.de" class="dsg1-5" rel="nofollow" target="_blank">Erstellt mit
                     Datenschutz-Generator.de von RA Dr. Thomas Schwenke</a>
-                <p></p>
+
             </div>
         </div>
     </div>

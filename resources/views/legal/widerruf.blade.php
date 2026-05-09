@@ -16,7 +16,6 @@
                     <p>Lukas Bock<br>
                     Gutenfelsstr. 2<br>
                     28217 Bremen<br><br>
-                    Telefon: 0421 83066232<br>
                     E-Mail: widerruf@lubomedia.de
                     </p>
 
@@ -42,7 +41,6 @@
                     Lukas Bock<br>
                     Gutenfelsstr. 2<br>
                     28217 Bremen<br><br>
-                    Telefon: 0421 83066232<br>
                     E-Mail: widerruf@lubomedia.de
                 </p>
                 <p>–Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über den Kauf der folgenden Waren (*)/die Erbringung der folgenden Dienstleistung (*) </p>

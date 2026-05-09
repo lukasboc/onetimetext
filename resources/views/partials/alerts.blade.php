@@ -6,14 +6,14 @@
 @endif
 
 @if(session('success'))
-    <div role="alert" class="alert alert-success mb-6">
+    <div role="alert" class="alert alert-soft alert-success mb-6">
         <x-icons.check class="size-5 shrink-0" />
         <span>{{ session('success') }}</span>
     </div>
 @endif
 
 @if($errors->any())
-    <div role="alert" class="alert alert-error mb-6">
+    <div role="alert" class="alert alert-soft alert-error mb-6">
         <x-icons.exclamation-triangle class="size-5 shrink-0" />
         <ul class="list-disc list-inside">
             @foreach($errors->all() as $error)

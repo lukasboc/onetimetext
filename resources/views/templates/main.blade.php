@@ -105,7 +105,9 @@
 </div>
 
 <main class="flex-1 container mx-auto px-4 py-8 max-w-6xl">
-    @include('partials.alerts')
+    @section('alerts')
+        @include('partials.alerts')
+    @show
     @yield('content')
 </main>
 
