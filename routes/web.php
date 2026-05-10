@@ -39,7 +39,7 @@ Route::get('/order', [PlanController::class, 'order'])->middleware(['auth']);
 
 Route::get('/dashboard', [PlanController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/welcome', [PlanController::class, 'welcome'])->middleware(['auth', 'verified'])->name('welcome');
+Route::get('/welcome', [PlanController::class, 'welcome'])->middleware(['auth'])->name('welcome');
 
 Route::get('/whoops', [PlanController::class, 'whoops'])->middleware(['auth'])->name('whoops');
 

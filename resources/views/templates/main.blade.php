@@ -126,5 +126,21 @@
     </div>
 </footer>
 
+@if(config('services.matomo.site_id'))
+@php $matomoUrl = rtrim(config('services.matomo.url'), '/') . '/'; $matomoId = config('services.matomo.site_id'); @endphp
+<script>
+    var _paq = window._paq = window._paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+        var u = "{{ $matomoUrl }}";
+        _paq.push(['setTrackerUrl', u + 'matomo.php']);
+        _paq.push(['setSiteId', '{{ $matomoId }}']);
+        var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+        g.async = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
+    })();
+</script>
+<noscript><p><img referrerpolicy="no-referrer-when-downgrade" src="{{ $matomoUrl }}matomo.php?idsite={{ $matomoId }}&amp;rec=1" style="border:0;" alt="" /></p></noscript>
+@endif
 </body>
 </html>
