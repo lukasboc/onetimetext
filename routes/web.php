@@ -37,22 +37,22 @@ Route::get('/pro', [PlanController::class, 'pro']);
 
 Route::get('/order', [PlanController::class, 'order'])->middleware(['auth']);
 
-Route::get('/dashboard', [PlanController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [PlanController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/welcome', [PlanController::class, 'welcome'])->middleware(['auth'])->name('welcome');
 
 Route::get('/whoops', [PlanController::class, 'whoops'])->middleware(['auth'])->name('whoops');
 
-Route::get('/membership', [PlanController::class, 'membership'])->middleware(['auth'])->name('membership');
+Route::get('/membership', [PlanController::class, 'membership'])->middleware(['auth', 'verified'])->name('membership');
 
-Route::get('/billing-portal', [PlanController::class, 'billingPortal'])->middleware(['auth'])->name('billingPortal');
+Route::get('/billing-portal', [PlanController::class, 'billingPortal'])->middleware(['auth', 'verified'])->name('billingPortal');
 
 Route::prefix('/')->name('text.')->group(function(){
     Route::resource('/secret', TextController::class);
 });
 
-Route::post('/delete-text', [SecretTextController::class, 'delete'])->middleware(['auth'])->name('deleteText');
+Route::post('/delete-text', [SecretTextController::class, 'delete'])->middleware(['auth', 'verified'])->name('deleteText');
 
-Route::get('/delete-user', [PlanController::class, 'deleteUserView'])->middleware(['auth'])->name('deleteUserView');
+Route::get('/delete-user', [PlanController::class, 'deleteUserView'])->middleware(['auth', 'verified'])->name('deleteUserView');
 
-Route::post('/delete-user', [PlanController::class, 'deleteUser'])->middleware(['auth'])->name('deleteUser');
+Route::post('/delete-user', [PlanController::class, 'deleteUser'])->middleware(['auth', 'verified'])->name('deleteUser');

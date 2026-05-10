@@ -14,6 +14,16 @@ class Text extends Model
 
     protected $table = "texts";
 
+    protected $casts = [
+        'notify_on_read' => 'boolean',
+        'expires_at'     => 'datetime',
+    ];
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
+
     public function create(array $input)
     {
         return new Text([
