@@ -40,4 +40,8 @@ return [
     'contact' => [
         'mail' => env('CONTACT_MAIL')
     ],
+    'matomo' => [
+        'url'     => env('MATOMO_URL', 'https://statistics.lubomedia.de'),
+        'site_id' => env('MATOMO_SITE_ID'),
+    ],
 ];

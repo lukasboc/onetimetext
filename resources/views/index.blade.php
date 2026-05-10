@@ -71,12 +71,160 @@
                         rows="6"
                         autofocus
                     >{{ old('value') }}</textarea>
+                    <div class="flex justify-between items-center text-xs text-base-content/40 mt-1">
+                        <span id="char-count">0 / {{ auth()->user()?->subscribed() ? '10.000' : '2.000' }}</span>
+                        @auth
+                            @unless(auth()->user()->subscribed())
+                                <a href="{{ url('/pro') }}" class="link link-primary">Pro: bis zu 10.000 Zeichen</a>
+                            @endunless
+                        @else
+                            <a href="{{ url('/pro') }}" class="link link-primary">Pro: bis zu 10.000 Zeichen</a>
+                        @endauth
+                    </div>
                     @error('value')
                         <p class="text-error text-sm">{{ $message }}</p>
                     @enderror
                     @error('key')
                         <p class="text-error text-sm">{{ $message }}</p>
                     @enderror
+                    @auth
+                        @if(auth()->user()->subscribed())
+                            <div class="form-control mt-3">
+                                <label class="label cursor-pointer justify-start gap-3">
+                                    <input type="checkbox" name="notify_on_read" value="1"
+                                           class="checkbox checkbox-primary checkbox-sm"
+                                           {{ old('notify_on_read') ? 'checked' : '' }} />
+                                    <span class="label-text">Per E-Mail benachrichtigen, wenn der Link geöffnet wird</span>
+                                </label>
+                            </div>
+                        @endif
+                    @endauth
+                    {{-- Ablauf-Auswahl (alle Nutzer) --}}
+                    @php
+                        $isPro   = auth()->user()?->subscribed();
+                        $oldExp  = old('expires_in') ?? '336';
+                        $expMap  = [
+                            ''       => 'nie',
+                            '72'     => '3 Tagen',
+                            '168'    => '7 Tagen',
+                            '336'    => '14 Tagen',
+                            '720'    => '30 Tagen',
+                            'custom' => 'individuell',
+                        ];
+                        $expInitLabel = $expMap[$oldExp] ?? '14 Tagen';
+                    @endphp
+                    <div class="form-control mt-3 text-left">
+                        <div class="inline-flex items-center gap-1 flex-wrap">
+                            <span class="text-sm text-base-content/70">Automatisch löschen in</span>
+                            <div class="dropdown dropdown-bottom">
+                                <button type="button" tabindex="0"
+                                        class="inline-flex items-center gap-1 text-primary font-semibold text-sm underline underline-offset-2 decoration-dotted hover:opacity-70 transition-opacity cursor-pointer">
+                                    <span id="expires-btn-idx">{{ $expInitLabel }}</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-3.5 opacity-70 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                    </svg>
+                                </button>
+                                <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-20 w-64 p-1 shadow-xl border border-base-300 mt-1">
+                                    @if($isPro)
+                                        <li>
+                                            <button type="button" class="expires-opt-idx text-sm {{ $oldExp === '' ? 'active' : '' }}"
+                                                    data-value="" data-label="nie">
+                                                Kein automatisches Löschen
+                                            </button>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <button type="button" tabindex="-1" aria-disabled="true"
+                                                    class="text-sm opacity-40 pointer-events-none select-none"
+                                                    title="Nur für Pro-Nutzer verfügbar">
+                                                <x-icons.lock-closed class="size-3.5 shrink-0" />
+                                                <span class="flex-1">Kein automatisches Löschen</span>
+                                                <span class="badge badge-xs shrink-0">Pro</span>
+                                            </button>
+                                        </li>
+                                    @endif
+                                    <li><hr class="my-1 border-base-300"></li>
+                                    <li>
+                                        <button type="button" class="expires-opt-idx text-sm {{ $oldExp === '72' ? 'active' : '' }}"
+                                                data-value="72" data-label="3 Tagen">3 Tage</button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="expires-opt-idx text-sm {{ $oldExp === '168' ? 'active' : '' }}"
+                                                data-value="168" data-label="7 Tagen">7 Tage</button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="expires-opt-idx text-sm {{ $oldExp === '336' ? 'active' : '' }}"
+                                                data-value="336" data-label="14 Tagen">
+                                            14 Tage <span class="opacity-50 text-xs ml-1">(Standard)</span>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="expires-opt-idx text-sm {{ $oldExp === '720' ? 'active' : '' }}"
+                                                data-value="720" data-label="30 Tagen">30 Tage</button>
+                                    </li>
+                                    <li><hr class="my-1 border-base-300"></li>
+                                    @if($isPro)
+                                        <li>
+                                            <button type="button" class="expires-opt-idx text-sm {{ $oldExp === 'custom' ? 'active' : '' }}"
+                                                    data-value="custom" data-label="individuell">
+                                                Individueller Zeitpunkt …
+                                            </button>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <button type="button" tabindex="-1" aria-disabled="true"
+                                                    class="text-sm opacity-40 pointer-events-none select-none"
+                                                    title="Nur für Pro-Nutzer verfügbar">
+                                                <x-icons.lock-closed class="size-3.5 shrink-0" />
+                                                <span class="flex-1">Individueller Zeitpunkt …</span>
+                                                <span class="badge badge-xs shrink-0">Pro</span>
+                                            </button>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
+                        <input type="hidden" name="expires_in" id="expires-val-idx" value="{{ $oldExp }}">
+                        <div id="custom-expires-idx" class="{{ $oldExp === 'custom' && $isPro ? '' : 'hidden' }} mt-2">
+                            <input type="number" name="expires_in_days"
+                                   class="input input-bordered input-sm w-full @error('expires_in_days') input-error @enderror"
+                                   min="1" max="365"
+                                   value="{{ old('expires_in_days') }}"
+                                   placeholder="Anzahl Tage (1–365)" />
+                            @error('expires_in_days')
+                                <p class="text-error text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                    <script>
+                    (function () {
+                        var btn    = document.getElementById('expires-btn-idx');
+                        var inp    = document.getElementById('expires-val-idx');
+                        var custom = document.getElementById('custom-expires-idx');
+                        document.querySelectorAll('.expires-opt-idx').forEach(function (el) {
+                            el.addEventListener('click', function () {
+                                btn.textContent = this.dataset.label;
+                                inp.value = this.dataset.value;
+                                custom.classList.toggle('hidden', this.dataset.value !== 'custom');
+                                document.activeElement.blur();
+                            });
+                        });
+                    })();
+                    </script>
+                    <script>
+                        (function () {
+                            var ta = document.getElementById('value');
+                            var counter = document.getElementById('char-count');
+                            var max = {{ auth()->user()?->subscribed() ? 10000 : 2000 }};
+                            function update() {
+                                var n = ta.value.length;
+                                counter.textContent = n.toLocaleString('de-DE') + ' / ' + max.toLocaleString('de-DE');
+                                counter.classList.toggle('text-error', n > max);
+                            }
+                            ta.addEventListener('input', update);
+                            update();
+                        })();
+                    </script>
                 </div>
                 <div class="mt-4">
                     <button type="submit" class="btn btn-primary w-full gap-2 text-base">

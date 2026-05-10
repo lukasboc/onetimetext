@@ -11,6 +11,7 @@
 
             <form method="POST" action="{{ route('register') }}" class="flex flex-col gap-4">
                 @csrf
+                @honeypot
                 <div class="form-control gap-1">
                     <label class="label" for="name"><span class="label-text">Name</span></label>
                     <input name="name" type="text" id="name"
@@ -48,13 +49,11 @@
                            autocomplete="new-password" />
                 </div>
 
-                <div class="form-control">
-                    <label class="label cursor-pointer justify-start gap-3">
-                        <input type="checkbox" name="iAgree" id="iAgree" class="checkbox checkbox-primary" required />
-                        <span class="label-text text-base-content/70 text-sm">
-                            Ich akzeptiere die <a href="{{ url('/agb') }}" class="link link-primary">AGB</a>
-                            und habe die <a href="{{ url('/widerruf') }}" class="link link-primary">Widerrufsbelehrung</a> gelesen.
-                        </span>
+                <div class="flex items-start gap-3">
+                    <input type="checkbox" name="iAgree" id="iAgree" class="checkbox checkbox-primary shrink-0 mt-0.5" required />
+                    <label for="iAgree" class="text-base-content/70 text-sm cursor-pointer">
+                        Ich akzeptiere die <a href="{{ url('/agb') }}" class="link link-primary">AGB</a>
+                        und habe die <a href="{{ url('/widerruf') }}" class="link link-primary">Widerrufsbelehrung</a> gelesen.
                     </label>
                 </div>
 

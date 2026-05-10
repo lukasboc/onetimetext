@@ -11,7 +11,8 @@
         "laravel/fortify": "^1.13",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.7",
-        "spatie/laravel-cookie-consent": "^3.0"
+        "spatie/laravel-cookie-consent": "^3.0",
+        "spatie/laravel-honeypot": "^4.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
