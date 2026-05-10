@@ -11,6 +11,7 @@
 
             <form method="POST" action="{{ route('register') }}" class="flex flex-col gap-4">
                 @csrf
+                @honeypot
                 <div class="form-control gap-1">
                     <label class="label" for="name"><span class="label-text">Name</span></label>
                     <input name="name" type="text" id="name"

@@ -89,7 +89,7 @@ return [
     |
     */
 
-    'middleware' => ['web'],
+    'middleware' => ['web', \Spatie\Honeypot\ProtectAgainstSpam::class],
 
     /*
     |--------------------------------------------------------------------------
@@ -103,8 +103,9 @@ return [
     */
 
     'limiters' => [
-        'login' => 'login',
-        'two-factor' => 'two-factor',
+        'login'        => 'login',
+        'two-factor'   => 'two-factor',
+        'registration' => 'registration',
     ],
 
     /*
