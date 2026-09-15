@@ -6,8 +6,8 @@
             <section id="about">
                 <div class="container mt-5">
                     <header class="text-center mb-5">
-                        <h6 class="text-uppercase">Schließe hier dein Abo ab:</h6>
-                        <h1><span class="highlight-text">OneTimeText <span class="text-warning">Pro</span></span>.</h1>
+                        <h6 class="text-uppercase">{{ __('Subscribe here:') }}</h6>
+                        <h1><span class="highlight-text">{{ env('APP_NAME', 'OneTimeText') }} <span class="text-warning">Pro</span></span>.</h1>
                     </header>
                     <div class="row pt-5 mb-5">
 

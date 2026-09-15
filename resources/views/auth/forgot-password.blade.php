@@ -5,9 +5,9 @@
     <div class="card bg-base-200 shadow-xl w-full max-w-md">
         <div class="card-body gap-5">
             <div class="text-center">
-                <h1 class="text-2xl font-bold">Passwort vergessen.</h1>
+                <h1 class="text-2xl font-bold">{{ __('Forgot password') }}.</h1>
                 <p class="text-base-content/60 text-sm mt-1">
-                    Gib deine E-Mail-Adresse ein – du erhältst einen Link zum Zurücksetzen per Mail.
+                    {{ __('Enter your email address – you will receive a reset link by mail.') }}
                 </p>
             </div>
 
@@ -21,7 +21,7 @@
             <form method="POST" action="{{ route('password.email') }}" class="flex flex-col gap-4">
                 @csrf
                 <div class="form-control gap-1">
-                    <label class="label" for="email"><span class="label-text">E-Mail</span></label>
+                    <label class="label" for="email"><span class="label-text">{{ __('Email') }}</span></label>
                     <input name="email" type="email" id="email"
                            class="input input-bordered w-full @error('email') input-error @enderror"
                            autocomplete="email" />
@@ -30,11 +30,11 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary w-full">Link zusenden</button>
+                <button type="submit" class="btn btn-primary w-full">{{ __('Send link') }}</button>
             </form>
 
             <div class="text-center text-sm">
-                <a href="{{ url('/login') }}" class="link link-hover text-base-content/50">Zurück zum Login</a>
+                <a href="{{ url('/login') }}" class="link link-hover text-base-content/50">{{ __('Back to login') }}</a>
             </div>
         </div>
     </div>

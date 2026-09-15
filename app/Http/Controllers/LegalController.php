@@ -16,7 +16,7 @@ class LegalController extends Controller
 
     public function privacyPolicy()
     {
-        return view('legal.privacy');
+        return view(app()->getLocale() === 'en' ? 'legal.privacy_eng' : 'legal.privacy');
     }
 
     public function agb()

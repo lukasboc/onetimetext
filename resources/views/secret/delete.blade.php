@@ -7,30 +7,30 @@
     <div class="flex items-center gap-3 mb-6">
         <x-icons.lock-open class="size-8 text-success" />
         <h1 class="text-3xl font-bold">
-            Dein <span class="text-primary">OneTimeText</span>.
+            {!! __('Your :app.', ['app' => '<span class="text-primary">' . e(env('APP_NAME', 'OneTimeText')) . '</span>']) !!}
         </h1>
     </div>
 
     <div role="alert" class="alert alert-soft alert-success mb-6">
         <x-icons.check class="size-5 shrink-0" />
-        <span>Die Nachricht wurde erfolgreich geöffnet und wird nun aus dem System gelöscht.</span>
+        <span>{{ __('The message was successfully opened and is now being deleted from the system.') }}</span>
     </div>
 
     <div class="card bg-base-200 shadow-xl">
         <div class="card-body">
-            <p class="text-sm text-base-content/50 uppercase tracking-wider mb-3">Nachrichteninhalt</p>
+            <p class="text-sm text-base-content/50 uppercase tracking-wider mb-3">{{ __('Message content') }}</p>
             <div id="secret-content" class="whitespace-pre-wrap text-base-content leading-relaxed font-mono text-sm bg-base-300 rounded-lg p-4">{!! nl2br(e($secret->value)) !!}</div>
 
             <div class="card-actions justify-end mt-4">
                 <button id="copy-btn" class="btn btn-primary gap-2">
                     <x-icons.clipboard class="size-4" />
-                    <span id="copy-text">Kopieren</span>
+                    <span id="copy-text">{{ __('Copy') }}</span>
                 </button>
             </div>
 
             <div role="alert" id="copied-alert" class="alert alert-success mt-4 hidden">
                 <x-icons.check class="size-5 shrink-0" />
-                <span>Die Nachricht wurde kopiert. Vielen Dank für die Nutzung von OneTimeText.</span>
+                <span>{{ __('The message has been copied. Thank you for using :app.', ['app' => env('APP_NAME', 'OneTimeText')]) }}</span>
             </div>
         </div>
     </div>
@@ -38,7 +38,7 @@
     <div class="text-center mt-8">
         <a href="{{ url('/') }}" class="btn btn-ghost gap-2">
             <x-icons.link class="size-4" />
-            Neuen OneTimeText erstellen
+            {{ __('Create new :app', ['app' => env('APP_NAME', 'OneTimeText')]) }}
         </a>
     </div>
 </div>
@@ -51,7 +51,7 @@
         }
     });
     clipboard.on('success', function(e) {
-        document.getElementById('copy-text').textContent = '✓ Kopiert!';
+        document.getElementById('copy-text').textContent = '{{ __('✓ Copied!') }}';
         document.getElementById('copied-alert').classList.remove('hidden');
         e.clearSelection();
     });

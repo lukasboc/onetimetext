@@ -23,14 +23,18 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/impressum', [LegalController::class, 'imprint']);
-Route::get('/datenschutz', [LegalController::class, 'privacyPolicy']);
-Route::get('/agb', [LegalController::class, 'agb']);
-Route::get('/contact', [LegalController::class, 'contact']);
+Route::get('/impressum', [LegalController::class, 'imprint'])->name('legal.imprint');
+Route::get('/imprint', [LegalController::class, 'imprint']);
+Route::get('/datenschutz', [LegalController::class, 'privacyPolicy'])->name('legal.privacy');
+Route::get('/privacy', [LegalController::class, 'privacyPolicy']);
+Route::get('/agb', [LegalController::class, 'agb'])->name('legal.terms');
+Route::get('/terms', [LegalController::class, 'agb']);
+Route::get('/contact', [LegalController::class, 'contact'])->name('legal.contact');
 Route::post('/contact', [LegalController::class, 'sendMail'])->name('sendContactMessage');
 
 
-Route::get('/widerruf', [LegalController::class, 'revocation']);
+Route::get('/widerruf', [LegalController::class, 'revocation'])->name('legal.revocation');
+Route::get('/revocation', [LegalController::class, 'revocation']);
 
 
 Route::get('/pro', [PlanController::class, 'pro']);

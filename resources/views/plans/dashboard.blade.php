@@ -5,10 +5,10 @@
 <div class="py-8">
     <div class="mb-8">
         <h1 class="text-3xl font-bold">
-            Dein <span class="text-primary">OneTimeText</span> Dashboard.
+            {!! __('Your :app Dashboard.', ['app' => '<span class="text-primary">' . e(env('APP_NAME', 'OneTimeText')) . '</span>']) !!}
         </h1>
         <p class="text-base-content/60 mt-1">
-            Erstelle neue OneTimeTexts und verwalte deine vorhandenen Nachrichten.
+            {{ __('Create new :app messages and manage your existing messages.', ['app' => env('APP_NAME', 'OneTimeText')]) }}
         </p>
     </div>
 
@@ -18,9 +18,9 @@
             <div class="rounded-box bg-success/15 border border-success/40 p-4 flex flex-col gap-3 text-left">
                 <div class="flex items-center gap-2 text-success">
                     <x-icons.check class="size-5 shrink-0" />
-                    <span class="font-semibold text-base">Dein Link wurde erstellt!</span>
+                    <span class="font-semibold text-base">{{ __('Your link has been created!') }}</span>
                 </div>
-                <p class="text-sm text-base-content/70">Kopiere den Link und sende ihn an den Empfänger. Der Link kann nur <strong>einmal</strong> geöffnet werden.</p>
+                <p class="text-sm text-base-content/70">{!! __('Copy the link and send it to the recipient. The link can only be opened <strong>once</strong>.') !!}</p>
                 <div class="join w-full">
                     <input id="secret-url-field"
                         type="text"
@@ -29,7 +29,7 @@
                         readonly />
                     <button id="copy-btn" class="btn btn-primary join-item gap-2">
                         <x-icons.clipboard class="size-4" />
-                        <span id="copy-text">Kopieren</span>
+                        <span id="copy-text">{{ __('Copy') }}</span>
                     </button>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                 text: function() { return document.getElementById('secret-url-field').value; }
             });
             clipboard.on('success', function(e) {
-                document.getElementById('copy-text').textContent = '✓ Kopiert!';
+                document.getElementById('copy-text').textContent = '{{ __('✓ Copied!') }}';
                 e.clearSelection();
             });
         </script>
@@ -51,18 +51,18 @@
         {{-- Formular --}}
         <div class="card bg-base-200 shadow-xl">
             <div class="card-body gap-4">
-                <h2 class="card-title text-lg">Neuen OneTimeText erstellen</h2>
+                <h2 class="card-title text-lg">{{ __('Create new :app', ['app' => env('APP_NAME', 'OneTimeText')]) }}</h2>
                 <form id="save-secret-form" method="POST" action="{{ route('text.secret.store') }}">
                     @csrf
                     <div class="form-control gap-1">
                         <label class="label" for="value">
-                            <span class="label-text">Geheime Nachricht</span>
+                            <span class="label-text">{{ __('Secret message') }}</span>
                         </label>
                         <textarea name="value" id="value" rows="5"
                                   class="textarea textarea-bordered w-full @error('value') textarea-error @enderror"
-                                  placeholder="Tippe deine Nachricht hier ein …">{{ old('value') }}</textarea>
+                                  placeholder="{{ __('Type your message here …') }}">{{ old('value') }}</textarea>
                         <div class="flex justify-between items-center text-xs text-base-content/40 mt-1">
-                            <span id="char-count">0 / {{ auth()->user()?->subscribed() ? '10.000' : '2.000' }}</span>
+                            <span id="char-count">0 / {{ auth()->user()?->subscribed() ? number_format(10000, 0, ',', app()->getLocale() === 'de' ? '.' : ',') : number_format(2000, 0, ',', app()->getLocale() === 'de' ? '.' : ',') }}</span>
                         </div>
                         @error('value')
                             <p class="text-error text-xs mt-1">{{ $message }}</p>
@@ -73,7 +73,7 @@
                                     <input type="checkbox" name="notify_on_read" value="1"
                                            class="checkbox checkbox-primary checkbox-sm"
                                            {{ old('notify_on_read') ? 'checked' : '' }} />
-                                    <span class="label-text">Per E-Mail benachrichtigen, wenn der Link geöffnet wird</span>
+                                    <span class="label-text">{{ __('Notify me by email when the link is opened') }}</span>
                                 </label>
                             </div>
                         @endif
@@ -82,18 +82,18 @@
                             $isPro   = auth()->user()?->subscribed();
                             $oldExp  = old('expires_in') ?? '336';
                             $expMap  = [
-                                ''       => 'nie',
-                                '72'     => '3 Tagen',
-                                '168'    => '7 Tagen',
-                                '336'    => '14 Tagen',
-                                '720'    => '30 Tagen',
-                                'custom' => 'individuell',
+                                ''       => __('never'),
+                                '72'     => __('3 days'),
+                                '168'    => __('7 days'),
+                                '336'    => __('14 days'),
+                                '720'    => __('30 days'),
+                                'custom' => __('custom'),
                             ];
-                            $expInitLabel = $expMap[$oldExp] ?? '14 Tagen';
+                            $expInitLabel = $expMap[$oldExp] ?? __('14 days');
                         @endphp
                         <div class="form-control mt-3">
                             <div class="inline-flex items-center gap-1 flex-wrap">
-                                <span class="text-sm text-base-content/70">Automatisch löschen in</span>
+                                <span class="text-sm text-base-content/70">{{ __('Auto-delete in') }}</span>
                                 <div class="dropdown dropdown-bottom">
                                     <button type="button" tabindex="0"
                                             class="inline-flex items-center gap-1 text-primary font-semibold text-sm underline underline-offset-2 decoration-dotted hover:opacity-70 transition-opacity cursor-pointer">
@@ -106,17 +106,17 @@
                                         @if($isPro)
                                             <li>
                                                 <button type="button" class="expires-opt-dash text-sm {{ $oldExp === '' ? 'active' : '' }}"
-                                                        data-value="" data-label="nie">
-                                                    Kein automatisches Löschen
+                                                        data-value="" data-label="{{ __('never') }}">
+                                                    {{ __('No automatic deletion') }}
                                                 </button>
                                             </li>
                                         @else
                                             <li>
                                                 <button type="button" tabindex="-1" aria-disabled="true"
                                                         class="text-sm opacity-40 pointer-events-none select-none"
-                                                        title="Nur für Pro-Nutzer verfügbar">
+                                                        title="{{ __('Pro users only') }}">
                                                     <x-icons.lock-closed class="size-3.5 shrink-0" />
-                                                    <span class="flex-1">Kein automatisches Löschen</span>
+                                                    <span class="flex-1">{{ __('No automatic deletion') }}</span>
                                                     <span class="badge badge-xs shrink-0">Pro</span>
                                                 </button>
                                             </li>
@@ -124,37 +124,37 @@
                                         <li><hr class="my-1 border-base-300"></li>
                                         <li>
                                             <button type="button" class="expires-opt-dash text-sm {{ $oldExp === '72' ? 'active' : '' }}"
-                                                    data-value="72" data-label="3 Tagen">3 Tage</button>
+                                                    data-value="72" data-label="{{ __('3 days') }}">{{ __('3 days') }}</button>
                                         </li>
                                         <li>
                                             <button type="button" class="expires-opt-dash text-sm {{ $oldExp === '168' ? 'active' : '' }}"
-                                                    data-value="168" data-label="7 Tagen">7 Tage</button>
+                                                    data-value="168" data-label="{{ __('7 days') }}">{{ __('7 days') }}</button>
                                         </li>
                                         <li>
                                             <button type="button" class="expires-opt-dash text-sm {{ $oldExp === '336' ? 'active' : '' }}"
-                                                    data-value="336" data-label="14 Tagen">
-                                                14 Tage <span class="opacity-50 text-xs ml-1">(Standard)</span>
+                                                    data-value="336" data-label="{{ __('14 days') }}">
+                                                {{ __('14 days') }} <span class="opacity-50 text-xs ml-1">({{ __('default') }})</span>
                                             </button>
                                         </li>
                                         <li>
                                             <button type="button" class="expires-opt-dash text-sm {{ $oldExp === '720' ? 'active' : '' }}"
-                                                    data-value="720" data-label="30 Tagen">30 Tage</button>
+                                                    data-value="720" data-label="{{ __('30 days') }}">{{ __('30 days') }}</button>
                                         </li>
                                         <li><hr class="my-1 border-base-300"></li>
                                         @if($isPro)
                                             <li>
                                                 <button type="button" class="expires-opt-dash text-sm {{ $oldExp === 'custom' ? 'active' : '' }}"
-                                                        data-value="custom" data-label="individuell">
-                                                    Individueller Zeitpunkt …
+                                                        data-value="custom" data-label="{{ __('custom') }}">
+                                                    {{ __('Custom date …') }}
                                                 </button>
                                             </li>
                                         @else
                                             <li>
                                                 <button type="button" tabindex="-1" aria-disabled="true"
                                                         class="text-sm opacity-40 pointer-events-none select-none"
-                                                        title="Nur für Pro-Nutzer verfügbar">
+                                                        title="{{ __('Pro users only') }}">
                                                     <x-icons.lock-closed class="size-3.5 shrink-0" />
-                                                    <span class="flex-1">Individueller Zeitpunkt …</span>
+                                                    <span class="flex-1">{{ __('Custom date …') }}</span>
                                                     <span class="badge badge-xs shrink-0">Pro</span>
                                                 </button>
                                             </li>
@@ -168,7 +168,7 @@
                                        class="input input-bordered input-sm w-full @error('expires_in_days') input-error @enderror"
                                        min="1" max="365"
                                        value="{{ old('expires_in_days') }}"
-                                       placeholder="Anzahl Tage (1–365)" />
+                                       placeholder="{{ __('Number of days (1–365)') }}" />
                                 @error('expires_in_days')
                                     <p class="text-error text-xs mt-1">{{ $message }}</p>
                                 @enderror
@@ -194,9 +194,11 @@
                                 var ta = document.getElementById('value');
                                 var counter = document.getElementById('char-count');
                                 var max = {{ auth()->user()?->subscribed() ? 10000 : 2000 }};
+                                var locale = '{{ app()->getLocale() }}';
+                                var fmtLocale = locale === 'de' ? 'de-DE' : 'en-US';
                                 function update() {
                                     var n = ta.value.length;
-                                    counter.textContent = n.toLocaleString('de-DE') + ' / ' + max.toLocaleString('de-DE');
+                                    counter.textContent = n.toLocaleString(fmtLocale) + ' / ' + max.toLocaleString(fmtLocale);
                                     counter.classList.toggle('text-error', n > max);
                                 }
                                 ta.addEventListener('input', update);
@@ -207,7 +209,7 @@
                     <div class="mt-4">
                         <button type="submit" class="btn btn-primary w-full gap-2">
                             <x-icons.link class="size-4" />
-                            Link erstellen
+                            {{ __('Create link') }}
                         </button>
                     </div>
                 </form>
@@ -217,11 +219,11 @@
         {{-- Stats --}}
         <div class="stats stats-vertical shadow bg-base-200 w-full">
             <div class="stat">
-                <div class="stat-title">Ungelesene OneTimeTexts</div>
+                <div class="stat-title">{{ __('Unread :app messages', ['app' => env('APP_NAME', 'OneTimeText')]) }}</div>
                 <div class="stat-value text-primary">{{ $textsAmount }}</div>
             </div>
             <div class="stat">
-                <div class="stat-title">Ältester OneTimeText</div>
+                <div class="stat-title">{{ __('Oldest :app message', ['app' => env('APP_NAME', 'OneTimeText')]) }}</div>
                 <div class="stat-value text-2xl">
                     @if($textsAmount === 0)
                         –
@@ -231,18 +233,18 @@
                 </div>
             </div>
             <div class="stat">
-                <div class="stat-title">Abostatus</div>
+                <div class="stat-title">{{ __('Subscription status') }}</div>
                 <div class="stat-value text-2xl">
                     <span class="badge badge-primary badge-lg">{{ $membership }}</span>
                 </div>
             </div>
             <div class="stat">
-                <div class="stat-title">Aboverlängerung</div>
+                <div class="stat-title">{{ __('Auto-renewal') }}</div>
                 <div class="stat-value text-2xl">
                     @if($ended)
-                        <span class="badge badge-error badge-lg">Inaktiv</span>
+                        <span class="badge badge-error badge-lg">{{ __('Inactive') }}</span>
                     @else
-                        <span class="badge badge-success badge-lg">Aktiv</span>
+                        <span class="badge badge-success badge-lg">{{ __('Active') }}</span>
                     @endif
                 </div>
             </div>
@@ -251,17 +253,17 @@
 
     {{-- Tabelle --}}
     <div>
-        <h2 class="text-xl font-bold mb-4">Deine OneTimeTexts.</h2>
+        <h2 class="text-xl font-bold mb-4">{{ __('Your :app messages.', ['app' => env('APP_NAME', 'OneTimeText')]) }}</h2>
         @if($textsAmount !== 0)
             <div class="overflow-x-auto rounded-xl border border-base-300">
                 <table class="table table-zebra">
                     <thead>
                         <tr>
-                            <th>Link</th>
-                            <th>Vorschau</th>
-                            <th>Erstellt am</th>
-                            <th>Läuft ab</th>
-                            <th>Aktionen</th>
+                            <th>{{ __('Link') }}</th>
+                            <th>{{ __('Preview') }}</th>
+                            <th>{{ __('Created at') }}</th>
+                            <th>{{ __('Expires at') }}</th>
+                            <th>{{ __('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -283,7 +285,7 @@
                                         <input name="key" type="hidden" value="{{ $text->key }}" />
                                         <button type="submit" class="btn btn-soft btn-error btn-sm gap-1">
                                             <x-icons.trash class="size-4" />
-                                            Löschen
+                                            {{ __('Delete') }}
                                         </button>
                                     </form>
                                 </td>
@@ -295,7 +297,7 @@
         @else
             <div role="alert" class="alert alert-info">
                 <x-icons.check class="size-5 shrink-0" />
-                <span>Alle deine OneTimeTexts wurden bereits gelesen.</span>
+                <span>{{ __('All your :app messages have already been read.', ['app' => env('APP_NAME', 'OneTimeText')]) }}</span>
             </div>
         @endif
     </div>

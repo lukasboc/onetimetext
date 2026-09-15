@@ -7,19 +7,19 @@
         <div>
             <div class="flex items-center gap-3 mb-6">
                 <x-icons.exclamation-triangle class="size-10 text-error" />
-                <h1 class="text-3xl font-bold">Oh nein!</h1>
+                <h1 class="text-3xl font-bold">{{ __('Oh no!') }}</h1>
             </div>
             <div role="alert" class="alert alert-error mb-6">
                 <x-icons.exclamation-triangle class="size-5 shrink-0" />
-                <span>Beim Abschluss deines Abonnements ist etwas fehlgeschlagen.</span>
+                <span>{{ __('Something went wrong while completing your subscription.') }}</span>
             </div>
-            <p class="text-base-content/70 mb-6">Bitte versuche es erneut.</p>
+            <p class="text-base-content/70 mb-6">{{ __('Please try again.') }}</p>
             <a href="{{ url('order') }}" class="btn btn-primary gap-2">
-                Erneut versuchen
+                {{ __('Try again') }}
             </a>
         </div>
         <div class="hidden md:flex justify-center">
-            <img src="{{ asset('images/error.png') }}" alt="Fehler" class="max-h-72 object-contain">
+            <img src="{{ asset('images/error.png') }}" alt="{{ __('Error') }}" class="max-h-72 object-contain">
         </div>
     </div>
 </div>
