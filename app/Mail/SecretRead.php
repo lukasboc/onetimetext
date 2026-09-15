@@ -14,8 +14,8 @@ class SecretRead extends Mailable
 
     public function build(): self
     {
-        return $this->from(config('mail.from.address'), config('mail.from.name'))
+        return $this->from(env('MAIL_FROM_ADDRESS'), env('APP_NAME'))
             ->markdown('mail.secret-read')
-            ->subject('Dein OneTimeText wurde gelesen');
+            ->subject(__('Your :app was read', ['app' => env('APP_NAME', 'OneTimeText')]));
     }
 }

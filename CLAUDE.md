@@ -4,7 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-OneTimeText is a Laravel 12 web app (PHP 8.2) for sharing self-destructing secrets: a user pastes text, gets a URL with a random key, and the recipient can read it exactly once before the row is deleted. The UI is primarily German. A paid "Pro" tier is layered on top via Laravel Cashier + Stripe.
+OneTimeText is a Laravel 12 web app (PHP 8.2) for sharing self-destructing secrets: a user pastes text, gets a URL with a random key, and the recipient can read it exactly once before the row is deleted. A paid "Pro" tier is layered on top via Laravel Cashier + Stripe.
+
+**Multi-brand.** One codebase serves two deployments:
+- `onetimetext.de` — German, brand `OneTimeText` (`APP_LOCALE=de`, `APP_NAME=OneTimeText`)
+- `share-password.de` — English, brand `SharePassword` (`APP_LOCALE=en`, `APP_NAME=SharePassword`)
+
+Brand + language are driven entirely by `.env`. Each deployment has its own `.env` (different `APP_NAME`, `APP_URL`, `APP_LOCALE`, `CONTACT_MAIL`, `MAIL_FROM_ADDRESS`, `MATOMO_SITE_ID`, `PRICE_ID`). Database and Stripe accounts are per-deployment. Never hardcode brand strings or German/English text — always wrap UI strings in `__('English source text')` (Laravel JSON translation, source-text-as-key convention) and use the `:app` placeholder for brand mentions, e.g. `__('Open :app', ['app' => env('APP_NAME')])`. German translations live in `resources/lang/de.json`; `resources/lang/en.json` is identity-mapped. Note that `env()` is used (not `config()`) per project preference — do not run `php artisan config:cache` without `config:clear` afterwards.
+
+**Locale-aware routes.** Legal slugs exist in both languages and point to the same controller actions: `/impressum` ↔ `/imprint`, `/datenschutz` ↔ `/privacy`, `/agb` ↔ `/terms`, `/widerruf` ↔ `/revocation`. The view picks the language via `app()->getLocale()`. For very long static legal prose (`legal/agb.blade.php`, `legal/widerruf.blade.php`, `legal/imprint.blade.php`), translation is done with inline `@if(app()->getLocale() === 'en')` blocks instead of `__()`, since wrapping every paragraph into JSON keys is impractical. `legal/privacy.blade.php` is still German-only (DSGVO boilerplate, English version pending).
 
 ## Commands
 
@@ -46,6 +54,6 @@ Routes for secrets are mounted via `Route::resource('/secret', TextController::c
 
 **Billing (Pro plan).** `App\Models\User` uses the Cashier `Billable` trait. `App\Http\Controllers\PlanController` is the entire subscription surface: `order()` starts a Stripe Checkout session against `services.subscription.price`, `dashboard()` / `membership()` read subscription state, `billingPortal()` redirects to Stripe's hosted portal, and `deleteUser()` wraps a transactional cascade-delete of the user's `texts` rows + the user. Successful checkout returns to `route('welcome')`, cancellation to `route('whoops')`.
 
-**Views.** All Blade templates extend `resources/views/templates/main.blade.php`. Asset bundling is Laravel Mix (`webpack.mix.js`) compiling `resources/js/app.js` → `public/js` and `resources/sass/app.scss` → `public/css`. German is the primary UI language (`resources/lang/de*`); legal pages (`/impressum`, `/datenschutz`, `/agb`, `/widerruf`) are German law boilerplate served by `LegalController`.
+**Views.** All Blade templates extend `resources/views/templates/main.blade.php`. Asset bundling is Laravel Mix (`webpack.mix.js`) compiling `resources/js/app.js` → `public/js` and `resources/sass/app.scss` → `public/css`. UI strings use Laravel JSON translation (`resources/lang/de.json` and `resources/lang/en.json`) — see the Multi-brand section above. Legal pages are German law boilerplate served by `LegalController` (the operating entity stays in Germany for both deployments).
 
 **Global middleware.** Note `Spatie\CookieConsent\CookieConsentMiddleware` is registered globally in `app/Http/Kernel.php` — every response gets the cookie-consent banner injected.
