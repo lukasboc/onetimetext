@@ -1,9 +1,9 @@
 @component('mail::message')
-    Es ist eine Nachricht über das Kontaktformular eingegangen.
+    {{ __('A message was received via the contact form.') }}
 
-    Betreff: {{ $subj }}
+    {{ __('Subject') }}: {{ $subj }}
 
     {{ $msg }}
 
-    Antwort an: {{ $senderMail }}
+    {{ __('Reply to') }}: {{ $senderMail }}
 @endcomponent

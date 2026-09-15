@@ -7,29 +7,28 @@
         <div class="card-body gap-5">
             <div class="flex items-center gap-3">
                 <x-icons.exclamation-triangle class="size-8 text-error" />
-                <h1 class="text-2xl font-bold">Benutzerkonto löschen.</h1>
+                <h1 class="text-2xl font-bold">{{ __('Delete account.') }}</h1>
             </div>
 
             <div role="alert" class="alert alert-error">
                 <x-icons.exclamation-triangle class="size-5 shrink-0" />
                 <div>
-                    <p class="font-semibold">Diese Aktion ist unwiderruflich.</p>
+                    <p class="font-semibold">{{ __('This action cannot be undone.') }}</p>
                     <p class="text-sm opacity-80 mt-1">
-                        Mit dem Löschen werden sämtliche OneTimeTexts und dein Benutzerkonto dauerhaft gelöscht.
-                        Ein Zugriff auf dieses Konto ist anschließend nicht mehr möglich.
+                        {{ __('Deleting will permanently remove all your :app messages and your user account. Access to this account will no longer be possible.', ['app' => env('APP_NAME', 'OneTimeText')]) }}
                     </p>
                 </div>
             </div>
 
-            <p class="text-base-content/60 text-sm">Wir bedanken uns bei dir für die Nutzung von OneTimeText!</p>
+            <p class="text-base-content/60 text-sm">{{ __('Thank you for using :app!', ['app' => env('APP_NAME', 'OneTimeText')]) }}</p>
 
             <form method="POST" action="{{ route('deleteUser') }}" class="flex flex-col gap-3">
                 @csrf
                 <button type="submit" class="btn btn-error w-full gap-2">
                     <x-icons.trash class="size-4" />
-                    Benutzerkonto inkl. allen Daten unwiderruflich löschen
+                    {{ __('Permanently delete account incl. all data') }}
                 </button>
-                <a href="{{ url('/membership') }}" class="btn btn-ghost w-full">Abbrechen</a>
+                <a href="{{ url('/membership') }}" class="btn btn-ghost w-full">{{ __('Cancel') }}</a>
             </form>
         </div>
     </div>

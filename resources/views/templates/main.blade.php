@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'OneTimeText') }}</title>
+    <title>{{ env('APP_NAME', 'OneTimeText') }}</title>
     <script>
         (function () {
             var stored = localStorage.getItem('theme');
@@ -22,13 +22,13 @@
     <div class="navbar-start">
         <a class="btn btn-ghost text-xl font-bold tracking-tight" href="{{ url('/') }}">
             <x-icons.lock-closed class="size-5 text-primary" />
-            OneTimeText
+            {{ env('APP_NAME', 'OneTimeText') }}
         </a>
     </div>
 
     {{-- Theme toggle (mobile) --}}
     <div class="navbar-center md:hidden">
-        <label class="swap swap-rotate btn btn-ghost btn-circle btn-sm" title="Theme wechseln" id="theme-toggle-mobile-label">
+        <label class="swap swap-rotate btn btn-ghost btn-circle btn-sm" title="{{ __('Switch theme') }}" id="theme-toggle-mobile-label">
             <input type="checkbox" id="theme-toggle-mobile" />
             <x-icons.sun class="swap-on size-5" />
             <x-icons.moon class="swap-off size-5" />
@@ -44,21 +44,21 @@
             <ul tabindex="0" class="dropdown-content menu menu-sm bg-base-200 rounded-box z-50 mt-3 w-52 p-2 shadow">
                 @if (Route::has('login'))
                     @auth
-                        <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
-                        <li><a href="{{ url('/membership') }}">Konto</a></li>
-                        <li><a href="{{ url('/billing-portal') }}">Abonnement</a></li>
+                        <li><a href="{{ url('/dashboard') }}">{{ __('Dashboard') }}</a></li>
+                        <li><a href="{{ url('/membership') }}">{{ __('Account') }}</a></li>
+                        <li><a href="{{ url('/billing-portal') }}">{{ __('Subscription') }}</a></li>
                         <li>
                             <a href="{{ url('logout') }}"
                                onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();">
-                                Logout
+                                {{ __('Logout') }}
                             </a>
                             <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" class="hidden">@csrf</form>
                         </li>
                     @else
                         @if (Route::has('register'))
-                            <li><a class="pro-upgrade-btn" href="{{ url('/pro') }}">Zu Pro wechseln</a></li>
+                            <li><a class="pro-upgrade-btn" href="{{ url('/pro') }}">{{ __('Switch to Pro') }}</a></li>
                         @endif
-                        <li><a href="{{ route('login') }}">Login</a></li>
+                        <li><a href="{{ route('login') }}">{{ __('Login') }}</a></li>
                     @endauth
                 @endif
             </ul>
@@ -68,7 +68,7 @@
     {{-- Desktop nav --}}
     <div class="navbar-end hidden md:flex gap-2 items-center">
         {{-- Theme toggle --}}
-        <label class="swap swap-rotate btn btn-ghost btn-circle btn-sm" title="Theme wechseln">
+        <label class="swap swap-rotate btn btn-ghost btn-circle btn-sm" title="{{ __('Switch theme') }}">
             <input type="checkbox" id="theme-toggle" />
             <x-icons.sun class="swap-on size-5" />
             <x-icons.moon class="swap-off size-5" />
@@ -76,19 +76,19 @@
 
         @if (Route::has('login'))
             @auth
-                <a class="btn btn-ghost btn-sm" href="{{ url('/dashboard') }}">Dashboard</a>
+                <a class="btn btn-ghost btn-sm" href="{{ url('/dashboard') }}">{{ __('Dashboard') }}</a>
                 <div class="dropdown dropdown-end">
                     <label tabindex="0" class="btn btn-ghost btn-sm btn-circle">
                         <x-icons.user-circle class="size-6" />
                     </label>
                     <ul tabindex="0" class="dropdown-content menu menu-sm bg-base-200 rounded-box z-50 mt-3 w-48 p-2 shadow">
-                        <li><a href="{{ url('/membership') }}">Konto</a></li>
-                        <li><a href="{{ url('/billing-portal') }}">Abonnement</a></li>
+                        <li><a href="{{ url('/membership') }}">{{ __('Account') }}</a></li>
+                        <li><a href="{{ url('/billing-portal') }}">{{ __('Subscription') }}</a></li>
                         <li><hr class="my-1 border-base-300"></li>
                         <li>
                             <a href="{{ url('logout') }}"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                Logout
+                                {{ __('Logout') }}
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">@csrf</form>
                         </li>
@@ -96,9 +96,9 @@
                 </div>
             @else
                 @if (Route::has('register'))
-                    <a class="btn btn-ghost btn-sm text-warning pro-upgrade-btn" href="{{ url('/pro') }}">Zu Pro wechseln</a>
+                    <a class="btn btn-ghost btn-sm text-warning pro-upgrade-btn" href="{{ url('/pro') }}">{{ __('Switch to Pro') }}</a>
                 @endif
-                <a class="btn btn-primary btn-sm" href="{{ route('login') }}">Login</a>
+                <a class="btn btn-primary btn-sm" href="{{ route('login') }}">{{ __('Login') }}</a>
             @endauth
         @endif
     </div>
@@ -113,15 +113,15 @@
 
 <footer class="footer footer-center py-8 bg-base-200 text-base-content mt-auto">
     <div>
-        <p class="text-xl font-bold tracking-tight mb-3">OneTimeText.</p>
+        <p class="text-xl font-bold tracking-tight mb-3">{{ env('APP_NAME', 'OneTimeText') }}.</p>
         <div class="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm text-base-content/70">
-            <a class="link link-hover" href="{{ url('/impressum') }}">Impressum</a>
+            <a class="link link-hover" href="{{ app()->getLocale() === 'en' ? url('/imprint') : url('/impressum') }}">{{ __('Imprint') }}</a>
             <span>|</span>
-            <a class="link link-hover" href="{{ url('/datenschutz') }}">Datenschutz</a>
+            <a class="link link-hover" href="{{ app()->getLocale() === 'en' ? url('/privacy') : url('/datenschutz') }}">{{ __('Privacy Policy') }}</a>
             <span>|</span>
             <a class="link link-hover" href="https://github.com/lukasboc/onetimetext" target="_blank">Github</a>
             <span>|</span>
-            <a class="link link-hover" href="{{ url('/contact') }}">Kontakt</a>
+            <a class="link link-hover" href="{{ url('/contact') }}">{{ __('Contact') }}</a>
         </div>
     </div>
 </footer>

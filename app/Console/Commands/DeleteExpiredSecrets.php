@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 class DeleteExpiredSecrets extends Command
 {
     protected $signature = 'secrets:delete-expired';
-    protected $description = 'Löscht abgelaufene OneTimeTexts';
+    protected $description = 'Delete expired secrets';
 
     public function handle(): void
     {
@@ -16,6 +16,6 @@ class DeleteExpiredSecrets extends Command
             ->where('expires_at', '<', now())
             ->delete();
 
-        $this->info("$deleted abgelaufene Secrets gelöscht.");
+        $this->info("$deleted expired secrets deleted.");
     }
 }

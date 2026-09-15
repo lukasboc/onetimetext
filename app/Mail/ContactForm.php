@@ -34,9 +34,9 @@ class ContactForm extends Mailable
      */
     public function build()
     {
-        return $this->from('info@onetimetext.de', 'OneTimeText')
+        return $this->from(env('MAIL_FROM_ADDRESS'), env('APP_NAME'))
             ->markdown('mail.contactForm')
-            ->subject('Kontaktformular OneTimeText')
+            ->subject(__(':app contact form', ['app' => env('APP_NAME', 'OneTimeText')]))
             ->with([
                 'subj' => $this->subj,
                 'msg' => $this->msg,
